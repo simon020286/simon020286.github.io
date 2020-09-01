@@ -1,4 +1,5 @@
 baseURL = "https://simon020286.github.io/personal-site/"
-languageCode = "en-us"
-title = "My New Hugo Site"
+languageCode = "it-IT"
+lamguage="it"
+title = "My Personal Site"
 theme = "ananke"

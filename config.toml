@@ -1,5 +1,6 @@
-baseURL = "https://simon020286.github.io/personal-site/"
+baseURL = "https://simon020286.github.io/"
 languageCode = "it-IT"
-lamguage="it"
 title = "My Personal Site"
 theme = "ananke"
+
+defaultContentLanguage = "it"

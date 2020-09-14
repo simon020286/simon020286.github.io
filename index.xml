@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My Personal Site</title>
+    <title>Dev Daddy</title>
     <link>https://simon020286.github.io/</link>
-    <description>Recent content on My Personal Site</description>
+    <description>Recent content on Dev Daddy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>it-IT</language>
     <lastBuildDate>Tue, 01 Sep 2020 15:41:29 +0200</lastBuildDate>
@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>First Post</title>
+      <title>Benvenuti</title>
       <link>https://simon020286.github.io/posts/first-post/</link>
       <pubDate>Tue, 01 Sep 2020 15:41:29 +0200</pubDate>
       

@@ -1,6 +1,26 @@
 baseURL = "https://simon020286.github.io/"
 languageCode = "it-IT"
-title = "My Personal Site"
+title = "Dev Daddy"
 theme = "ananke"
 
 defaultContentLanguage = "it"
+
+[params]
+  favicon = ""
+  site_logo = ""
+  description = "Dev Daddy blog."
+  facebook = ""
+  twitter = ""
+  instagram = ""
+  youtube = ""
+  github = ""
+  gitlab = ""
+  linkedin = ""
+  mastodon = ""
+  slack = ""
+  stackoverflow = ""
+  rss = ""
+  # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
+  background_color_class = "bg-navy"
+  featured_image = "/images/full-stack-developers.jpg"
+  recent_posts_number = 2

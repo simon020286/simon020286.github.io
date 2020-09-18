@@ -3,26 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://simon020286.github.io/tags/bash/</loc>
+    <lastmod>2020-09-17T16:59:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://simon020286.github.io/tags/ddns/</loc>
+    <lastmod>2020-09-17T16:59:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://simon020286.github.io/</loc>
+    <lastmod>2020-09-17T16:59:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://simon020286.github.io/posts/</loc>
+    <lastmod>2020-09-17T16:59:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://simon020286.github.io/tags/self-hosted/</loc>
+    <lastmod>2020-09-17T16:59:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://simon020286.github.io/tags/</loc>
+    <lastmod>2020-09-17T16:59:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://simon020286.github.io/posts/update-ddns/</loc>
+    <lastmod>2020-09-17T16:59:50+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://simon020286.github.io/posts/first-post/</loc>
     <lastmod>2020-09-01T15:41:29+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://simon020286.github.io/</loc>
-    <lastmod>2020-09-01T15:41:29+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://simon020286.github.io/posts/</loc>
-    <lastmod>2020-09-01T15:41:29+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://simon020286.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://simon020286.github.io/tags/</loc>
   </url>
   
 </urlset>

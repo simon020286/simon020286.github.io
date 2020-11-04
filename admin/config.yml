@@ -2,7 +2,7 @@ backend:
   name: github
   repo: simon020286/simon020286.github.io
   branch: master
-  site_domain: vigorous-panini-905e5c
+  site_domain: vigorous-panini-905e5c.netlify.com
 
 media_folder: static/images
 

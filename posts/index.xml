@@ -2,7 +2,7 @@
 Oggi ci dedicheremo all&amp;rsquo;aggiornamento automatico dell&amp;rsquo;ip del proprio server su alcuni servizi DDNS.
 Per fare ciò esistono innumerevoli tool, ma perché utilizzare qualcosa di già fatto quando puoi imparare qualcosa di nuovo?
 In questo periodo mi sto dilettando con gli script bash, quindi ho deciso di seguire questa strada. Il progetto è composto da soli due file, lo script vero e proprio e il file di configurazione, ad essere precisi ce ne sarebbe un terzo, ma viene creato automaticamente dallo script e serve solo per salvare l&amp;rsquo;ip corrente.</description></item><item><title>Benvenuti</title><link>https://simon020286.github.io/posts/first-post/</link><pubDate>Tue, 01 Sep 2020 15:41:29 +0200</pubDate><guid>https://simon020286.github.io/posts/first-post/</guid><description>Ciao a tutti, mi presento.
-Mi chiamo Simone e sono un programmatore .Net per professione. In questo blog però parlero tendenzialmente di altre tecnologie. Attualmente sono molto interessato a:
-1) docker come tecnologia di virtualizzazione 1) Golang come linguaggio di programmazione 1) Raspberry Pi come hardware
+Mi chiamo Simone e sono un programmatore .Net per professione. In questo blog però parlerò tendenzialmente di altre tecnologie. Attualmente sono molto interessato a:
+docker come tecnologia di virtualizzazione Golang come linguaggio di programmazione Raspberry Pi come hardware
 ma la curiosità è tanta, quindi molto probabilmente gli argomenti saranno molti altri.
-Cercherò di condividere il piú possibile le mie esperienze, i problemi riscontrati e relative soluzione, nella speranza di poter essere utile a qualcuno.</description></item></channel></rss>
+Cercherò di condividere il più possibile le mie esperienze, i problemi riscontrati e relative soluzione, nella speranza di poter essere utile a qualcuno.</description></item></channel></rss>

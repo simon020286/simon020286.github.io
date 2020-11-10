@@ -1,12 +1,13 @@
 baseURL = "https://simon020286.github.io/"
 languageCode = "it-IT"
 title = "Dev Daddy"
-theme = "ananke"
+theme = "cactus"
 
 defaultContentLanguage = "it"
 disqusShortname = "devdaddy-1"
 
 [params]
+  colortheme = "dark" # dark, light, white, or classic
   favicon = ""
   site_logo = ""
   description = "Dev Daddy blog."
@@ -25,3 +26,22 @@ disqusShortname = "devdaddy-1"
   background_color_class = "bg-navy"
   featured_image = "/images/full-stack-developers.jpg"
   recent_posts_number = 2
+
+  tagsOverview = true
+  [params.comments]
+      enabled = true
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "All posts"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 3

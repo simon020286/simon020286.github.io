@@ -4,6 +4,7 @@ title = "Dev Daddy"
 theme = "ananke"
 
 defaultContentLanguage = "it"
+disqusShortname = "devdaddy-1"
 
 [params]
   favicon = ""

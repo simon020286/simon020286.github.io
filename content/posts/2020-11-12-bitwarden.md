@@ -9,6 +9,11 @@ tags:
   - bitwarden
   - traefik
 ---
+Buongiorno a tutti, eccoci con un nuovo articolo.\
+Oggi vedremo come utilizzare un password manager il cui server gira interamente sul tuo host personale.\
+Iniziamo col dire che come server non utilizzeremo Bitwarden ufficiale, ma una versione compatibile Bitwarden_Rs, \
+scritto in Rust e compatibile con le API ufficiali. E' molto più leggero, completamente gratuito, ma utilizza l'app e le estensioni per browser ufficiali. 
+
 ```yaml
 version: "3"
  
@@ -65,5 +70,4 @@ services:
     volumes: 
       - <dir>/data:/data
       - <shared dir>:/shared
-
 ```

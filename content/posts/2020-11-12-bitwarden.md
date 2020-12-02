@@ -1,7 +1,7 @@
 ---
 title: Bitwarden
-draft: true
-date: 2020-11-12T13:32:39.017Z
+draft: false
+date: 2020-12-02T10:42:33.662Z
 description: Tutorial per installare Bitwarden tramite docker dietro reverse proxy Traefik
 tags:
   - self-hosted
@@ -12,7 +12,8 @@ tags:
 Buongiorno a tutti, eccoci con un nuovo articolo.\
 Oggi vedremo come utilizzare un password manager il cui server gira interamente sul tuo host personale.\
 Iniziamo col dire che come server non utilizzeremo Bitwarden ufficiale, ma una versione compatibile Bitwarden_Rs, \
-scritto in Rust e compatibile con le API ufficiali. E' molto più leggero, completamente gratuito, ma utilizza l'app e le estensioni per browser ufficiali. 
+scritto in Rust che implementa quasi tutte le API ufficiali. E' molto più leggero, completamente gratuito, e in più utilizza l'app e le estensioni per browser ufficiali. \
+Come detto nell'articolo dedicato a Traefik ([link](/posts/2020-11-04-traefik-intro)) è possibile impostare l'utilizzo del reverse proxy tramite labels, come potete vedere nel `docker-compose.yml` seguente.
 
 ```yaml
 version: "3"
@@ -23,7 +24,7 @@ networks:
       name: traefik_trproxy
 services: 
   bitwarden:
-    image: "bitwardenrs/server:raspberry"
+    image: "bitwardenrs/server"
     container_name: bitwarden
     environment: 
       DOMAIN: "https://<dominio>"
@@ -71,3 +72,15 @@ services:
       - <dir>/data:/data
       - <shared dir>:/shared
 ```
+
+E' molto importante rispettare alcune regole.
+
+1. il nome della connessione `traefik_network` deve essere lo stesso definito per traefik
+2. `LOG_FILE: /shared/logs/bitwarden/bitwarden.log` il path `/shared` deve essere lo stesso mappato nel volume
+3. `SIGNUPS_ALLOWED: "false"` al primo avvio bisogna impostarlo a `true`, altrimenti non sarà possibile registrare nessun utente, io l'ho messo a `false` dopo aver creato il mio utente e quello di mia moglie, in modo che nessuno sconosciuto si possa registrare. Siete liberi di lasciarlo a `true`.
+4. sostituire `<dominio>` con il vostro dominio
+
+Fatto questo è possibile lanciare il container semplicemente con il comando `docker-compose up -d`.\
+Avviato il container sarà possibile procedere alla registrazione del primo utente andato all'url specificato in `<dominio>`.
+
+Buon divertimento con il vostro nuovo password manager.

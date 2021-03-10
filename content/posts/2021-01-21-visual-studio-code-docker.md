@@ -15,3 +15,5 @@ Trovate tutte le informazioni [qui](https://code.visualstudio.com/).\
 In breve è un software multi-piattaforma, infatti lo trovate per Windows, MacOS e Linux, integra il controllo della versione del codice tramite git, esistono un'infinità di estensioni per facilitare lo sviluppo.
 
 ![visual studio code](https://res.cloudinary.com/drg2utgxr/image/upload/v1611249440/posts/vcode/home-screenshot-win-lg_vzx2kh.png "Visual Studio Code")
+
+Grazie alle tantissime estensioni disponibili è possibile programmare in qualsiasi linguaggio, ma in questo articolo vedremo come sviluppare in golang, sfruttando un container docker in cui installare il compilatore e tutto il necessario in modo da non "sporcare" il computer host.

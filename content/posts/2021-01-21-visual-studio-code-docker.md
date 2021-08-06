@@ -1,6 +1,6 @@
 ---
 title: Visual Studio Code - Docker
-draft: true
+draft: false
 date: 2021-08-06T09:02:15.620Z
 description: Sviluppare con Visual Studio Code all'interno di un container Docker
 tags:
@@ -84,7 +84,8 @@ EXPOSE 8000
 Fatto questo Visual Studio Code ti chiederà se vuoi aprire il workspace all'interno del container, rispondere di si e attendere che docker crei il container. Probabilmente alla fine del processo vi verrà suggerito di installare alcuni tool di golang, accettate e proseguite.\
 Dopo qualche secondo sarà possibile iniziare a sviluppare normalmente.\
 La cosa bella di questo processo è che i file che scriverete saranno fisicamente sul sistema host, quindi navigabili e gestibile dal file manager, ma tutte le librerie e eseguibili di go saranno all'interno del container.\
-Questo rende più semplice la gestione delle varie versione di golang e delle dipendenze dei propri progetti.
+Questo rende più semplice la gestione delle varie versione di golang e delle dipendenze dei propri progetti.\
+Ovviamente tutto questo è possibile utilizzarlo per molti linguaggi di programmazione ad esempio Python, Flutter, C# e molti altri.
 
 Spero di avervi aiutato e fatto scoprire qualcosa di nuovo.\
 Come al solito contattatemi pure nei commenti se avete bisogno di aiuto.

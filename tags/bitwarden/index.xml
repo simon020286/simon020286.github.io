@@ -1,3 +1,73 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bitwarden on Dev Daddy</title><link>https://simon020286.github.io/tags/bitwarden/</link><description>Recent content in bitwarden on Dev Daddy</description><generator>Hugo -- gohugo.io</generator><language>it-IT</language><lastBuildDate>Wed, 02 Dec 2020 10:42:33 +0000</lastBuildDate><atom:link href="https://simon020286.github.io/tags/bitwarden/index.xml" rel="self" type="application/rss+xml"/><item><title>Bitwarden</title><link>https://simon020286.github.io/posts/2020-11-12-bitwarden/</link><pubDate>Wed, 02 Dec 2020 10:42:33 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-12-bitwarden/</guid><description>Buongiorno a tutti, eccoci con un nuovo articolo.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bitwarden on T-Dev</title><link>https://simon020286.github.io/tags/bitwarden/</link><description>Recent content in bitwarden on T-Dev</description><generator>Hugo -- gohugo.io</generator><language>it-IT</language><lastBuildDate>Wed, 02 Dec 2020 10:42:33 +0000</lastBuildDate><atom:link href="https://simon020286.github.io/tags/bitwarden/index.xml" rel="self" type="application/rss+xml"/><item><title>Bitwarden</title><link>https://simon020286.github.io/posts/2020-11-12-bitwarden/</link><pubDate>Wed, 02 Dec 2020 10:42:33 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-12-bitwarden/</guid><description>Buongiorno a tutti, eccoci con un nuovo articolo.
 Oggi vedremo come utilizzare un password manager il cui server gira interamente sul tuo host personale.
-Iniziamo col dire che come server non utilizzeremo Bitwarden ufficiale, ma una versione compatibile Bitwarden_Rs, scritto in Rust che implementa quasi tutte le API ufficiali. E&amp;rsquo; molto più leggero, completamente gratuito, e in più utilizza l&amp;rsquo;app e le estensioni per browser ufficiali. Come detto nell&amp;rsquo;articolo dedicato a Traefik (link) è possibile impostare l&amp;rsquo;utilizzo del reverse proxy tramite labels, come potete vedere nel docker-compose.</description></item></channel></rss>
+Iniziamo col dire che come server non utilizzeremo Bitwarden ufficiale, ma una versione compatibile Bitwarden_Rs,
+scritto in Rust che implementa quasi tutte le API ufficiali. E' molto più leggero, completamente gratuito, e in più utilizza l&amp;rsquo;app e le estensioni per browser ufficiali.
+Come detto nell&amp;rsquo;articolo dedicato a Traefik (link) è possibile impostare l&amp;rsquo;utilizzo del reverse proxy tramite labels, come potete vedere nel docker-compose.</description><content>&lt;p>Buongiorno a tutti, eccoci con un nuovo articolo.&lt;br>
+Oggi vedremo come utilizzare un password manager il cui server gira interamente sul tuo host personale.&lt;br>
+Iniziamo col dire che come server non utilizzeremo Bitwarden ufficiale, ma una versione compatibile Bitwarden_Rs,&lt;br>
+scritto in Rust che implementa quasi tutte le API ufficiali. E' molto più leggero, completamente gratuito, e in più utilizza l&amp;rsquo;app e le estensioni per browser ufficiali.&lt;br>
+Come detto nell&amp;rsquo;articolo dedicato a Traefik (&lt;a href="https://simon020286.github.io/posts/2020-11-04-traefik-intro">link&lt;/a>) è possibile impostare l&amp;rsquo;utilizzo del reverse proxy tramite labels, come potete vedere nel &lt;code>docker-compose.yml&lt;/code> seguente.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+&lt;span style="color:#f92672">traefik_network&lt;/span>:
+&lt;span style="color:#f92672">external&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">traefik_trproxy&lt;/span>
+&lt;span style="color:#f92672">services&lt;/span>:
+&lt;span style="color:#f92672">bitwarden&lt;/span>:
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;bitwardenrs/server&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">container_name&lt;/span>: &lt;span style="color:#ae81ff">bitwarden&lt;/span>
+&lt;span style="color:#f92672">environment&lt;/span>:
+&lt;span style="color:#f92672">DOMAIN&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://&amp;lt;dominio&amp;gt;&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">LOG_FILE&lt;/span>: &lt;span style="color:#ae81ff">/shared/logs/bitwarden/bitwarden.log&lt;/span>
+&lt;span style="color:#f92672">LOG_LEVEL&lt;/span>: &lt;span style="color:#ae81ff">warn&lt;/span>
+&lt;span style="color:#f92672">ROCKET_LOG&lt;/span>: &lt;span style="color:#ae81ff">critical&lt;/span>
+&lt;span style="color:#f92672">WEBSOCKET_ENABLED&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">SIGNUPS_ALLOWED&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">traefik.enable&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.docker.network&lt;/span>: &lt;span style="color:#ae81ff">traefik_trproxy&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.browserXssFilter&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.contentTypeNosniff&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.customResponseHeaders.X-Robots-Tag&lt;/span>: &lt;span style="color:#ae81ff">noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.forceSTSHeader&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.frameDeny&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.sslRedirect&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.sslHost&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;dominio&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.stsIncludeSubdomains&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.stsPreload&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.stsSeconds&lt;/span>: &lt;span style="color:#ae81ff">315360000&lt;/span>
+&lt;span style="color:#f92672">traefik.http.services.bitwarden.loadbalancer.server.scheme&lt;/span>: &lt;span style="color:#ae81ff">http&lt;/span>
+&lt;span style="color:#f92672">traefik.http.services.bitwarden.loadbalancer.server.port&lt;/span>: &lt;span style="color:#ae81ff">80&lt;/span>
+&lt;span style="color:#f92672">traefik.http.services.bitwarden-ws.loadbalancer.server.port&lt;/span>: &lt;span style="color:#ae81ff">3012&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-http.service&lt;/span>: &lt;span style="color:#ae81ff">bitwarden&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-http.rule&lt;/span>: &lt;span style="color:#ae81ff">Host(`&amp;lt;dominio&amp;gt;`)&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-http.entrypoints&lt;/span>: &lt;span style="color:#ae81ff">http&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-http.middlewares&lt;/span>: &lt;span style="color:#ae81ff">bitwarden-security, gzip-compress@file, redirect-to-https@file&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.service&lt;/span>: &lt;span style="color:#ae81ff">bitwarden&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.rule&lt;/span>: &lt;span style="color:#ae81ff">Host(`&amp;lt;dominio&amp;gt;`)&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.entrypoints&lt;/span>: &lt;span style="color:#ae81ff">https&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.middlewares&lt;/span>: &lt;span style="color:#ae81ff">bitwarden-security, gzip-compress@file&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.tls&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.tls.certresolver&lt;/span>: &lt;span style="color:#ae81ff">le&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.service&lt;/span>: &lt;span style="color:#ae81ff">bitwarden-ws&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.rule&lt;/span>: &lt;span style="color:#ae81ff">Host(`&amp;lt;dominio&amp;gt;`) &amp;amp;&amp;amp; Path(`/notifications/hub`)&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.entrypoints&lt;/span>: &lt;span style="color:#ae81ff">https&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.middlewares&lt;/span>: &lt;span style="color:#ae81ff">bitwarden-security&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.tls&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.tls.certresolver&lt;/span>: &lt;span style="color:#ae81ff">le&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+- &lt;span style="color:#ae81ff">traefik_network&lt;/span>
+&lt;span style="color:#f92672">restart&lt;/span>: &lt;span style="color:#ae81ff">unless-stopped&lt;/span>
+&lt;span style="color:#f92672">volumes&lt;/span>:
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/data:/data&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;shared dir&amp;gt;:/shared&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>E' molto importante rispettare alcune regole.&lt;/p>
+&lt;ol>
+&lt;li>il nome della connessione &lt;code>traefik_network&lt;/code> deve essere lo stesso definito per traefik&lt;/li>
+&lt;li>&lt;code>LOG_FILE: /shared/logs/bitwarden/bitwarden.log&lt;/code> il path &lt;code>/shared&lt;/code> deve essere lo stesso mappato nel volume&lt;/li>
+&lt;li>&lt;code>SIGNUPS_ALLOWED: &amp;quot;false&amp;quot;&lt;/code> al primo avvio bisogna impostarlo a &lt;code>true&lt;/code>, altrimenti non sarà possibile registrare nessun utente, io l&amp;rsquo;ho messo a &lt;code>false&lt;/code> dopo aver creato il mio utente e quello di mia moglie, in modo che nessuno sconosciuto si possa registrare. Siete liberi di lasciarlo a &lt;code>true&lt;/code>.&lt;/li>
+&lt;li>sostituire &lt;code>&amp;lt;dominio&amp;gt;&lt;/code> con il vostro dominio&lt;/li>
+&lt;/ol>
+&lt;p>Fatto questo è possibile lanciare il container semplicemente con il comando &lt;code>docker-compose up -d&lt;/code>.&lt;br>
+Avviato il container sarà possibile procedere alla registrazione del primo utente andato all&amp;rsquo;url specificato in &lt;code>&amp;lt;dominio&amp;gt;&lt;/code>.&lt;/p>
+&lt;p>Buon divertimento con il vostro nuovo password manager.&lt;/p></content></item></channel></rss>

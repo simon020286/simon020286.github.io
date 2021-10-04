@@ -1,90 +1,226 @@
-<!doctype html><html lang=it-it><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Traefik - Intro | Dev Daddy</title><meta name=description content="Dev Daddy blog."><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="all,follow"><meta name=googlebot content="index,follow,snippet,archive"><meta property="og:title" content="Traefik - Intro"><meta property="og:description" content="Introduzione a traefik"><meta property="og:type" content="article"><meta property="og:url" content="https://simon020286.github.io/posts/2020-11-04-traefik-intro/"><meta property="article:published_time" content="2020-11-10T12:50:05+00:00"><meta property="article:modified_time" content="2020-11-10T12:50:05+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Traefik - Intro"><meta name=twitter:description content="Introduzione a traefik"><link rel=stylesheet href=https://simon020286.github.io/css/style-dark.css><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script><script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]--><link rel=icon type=image/png href=https://simon020286.github.io/images/favicon.ico></head><body class="max-width mx-auto px3 ltr"><div class="content index py4"><div id=header-post><a id=menu-icon href=#><i class="fas fa-bars fa-lg"></i></a><a id=menu-icon-tablet href=#><i class="fas fa-bars fa-lg"></i></a><a id=top-icon-tablet href=# onclick="$('html, body').animate({scrollTop:0},'fast');" style=display:none><i class="fas fa-chevron-up fa-lg"></i></a><span id=menu><span id=nav><ul><li><a href=/>Home</a></li><li><a href=/posts>All posts</a></li><li><a href=/tags>Tags</a></li></ul></span><br><span id=actions><ul><li><a class=icon href=https://simon020286.github.io/posts/update-ddns/><i class="fas fa-chevron-left" aria-hidden=true onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li><li><a class=icon href=https://simon020286.github.io/posts/2020-11-12-traefik-middlewares/><i class="fas fa-chevron-right" aria-hidden=true onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li><li><a class=icon href=# onclick="$('html, body').animate({scrollTop:0},'fast');"><i class="fas fa-chevron-up" aria-hidden=true onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li><li><a class=icon href=#><i class="fas fa-share-alt" aria-hidden=true onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li></ul><span id=i-prev class=info style=display:none>Previous post</span>
-<span id=i-next class=info style=display:none>Next post</span>
-<span id=i-top class=info style=display:none>Back to top</span>
-<span id=i-share class=info style=display:none>Share post</span></span><br><div id=share style=display:none><ul><li><a class=icon href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f"><i class="fab fa-facebook" aria-hidden=true></i></a></li><li><a class=icon href="https://twitter.com/share?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&text=Traefik%20-%20Intro"><i class="fab fa-twitter" aria-hidden=true></i></a></li><li><a class=icon href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-linkedin" aria-hidden=true></i></a></li><li><a class=icon href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&is_video=false&description=Traefik%20-%20Intro"><i class="fab fa-pinterest" aria-hidden=true></i></a></li><li><a class=icon href="mailto:?subject=Traefik%20-%20Intro&body=Check out this article: https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f"><i class="fas fa-envelope" aria-hidden=true></i></a></li><li><a class=icon href="https://getpocket.com/save?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-get-pocket" aria-hidden=true></i></a></li><li><a class=icon href="http://reddit.com/submit?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-reddit" aria-hidden=true></i></a></li><li><a class=icon href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-stumbleupon" aria-hidden=true></i></a></li><li><a class=icon href="http://digg.com/submit?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-digg" aria-hidden=true></i></a></li><li><a class=icon href="http://www.tumblr.com/share/link?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&name=Traefik%20-%20Intro&description=Introduzione%20a%20traefik"><i class="fab fa-tumblr" aria-hidden=true></i></a></li><li><a class=icon href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&t=Traefik%20-%20Intro"><i class="fab fa-hacker-news" aria-hidden=true></i></a></li></ul></div><div id=toc></div></span></div><article class=post itemscope itemtype=http://schema.org/BlogPosting><header><h1 class=posttitle itemprop="name headline">Traefik - Intro</h1><div class=meta><div class=postdate><time datetime="2020-11-10 12:50:05.227 &#43;0000 UTC" itemprop=datePublished>10-11-2020</time></div><div class=article-tag><i class="fas fa-tag"></i><a class=tag-link href=/tags/self-hosted rel=tag>self-hosted</a>
-,
-<a class=tag-link href=/tags/proxy rel=tag>proxy</a>
-,
-<a class=tag-link href=/tags/traefik rel=tag>traefik</a></div></div></header><div class=content itemprop=articleBody><p>Buongiorno,<br>oggi parleremo da <a href=https://doc.traefik.io/traefik/>Traefik</a>, un HTTP reverse proxy e load balancer.</p><p><img src=https://doc.traefik.io/traefik/v1.7/img/architecture.png alt=architettura></p><p>Io lo sto utilizzando per rendere accessibili dall&rsquo;esterno dei servizi hostati sul mio nas, come ad esempio Home Assistant e l&rsquo;ottimo password manager Bitwarden (di cui probabilmente parlerò su questo blog).<br>Si integra perfettamente con docker, è infatti in grado di leggere automaticamente le impostazioni da un container tramite label.<br>Vediamo ora come installarlo proprio tramite docker, più precisamente utilizzando docker-compose per semplificare le cose.</p><p>Per prima cosa scriviamo il file di configurazione. Ci sono vari modi per configurare Traefik, via argomenti da linea di comando o via file traefik.yml, che è la strada che ho scelto io perché mi sembra più chiara. Ho commentato direttamente nel file le parti &ldquo;meno&rdquo; importanti.</p><pre><code class=language-yaml>---
+<!doctype html><html lang=it>
+<head>
+<title>Traefik - Intro :: T-Dev</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Introduzione a traefik">
+<meta name=keywords content>
+<meta name=robots content="noodp">
+<link rel=canonical href=https://simon020286.github.io/posts/2020-11-04-traefik-intro/>
+<link rel=stylesheet href=https://simon020286.github.io/assets/style.css>
+<link rel=stylesheet href=https://simon020286.github.io/assets/green.css>
+<link rel=apple-touch-icon href=https://simon020286.github.io/img/apple-touch-icon-192x192.png>
+<link rel="shortcut icon" href=https://simon020286.github.io/images/favicon.ico>
+<meta name=twitter:card content="summary">
+<meta property="og:locale" content="it">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Traefik - Intro">
+<meta property="og:description" content="Introduzione a traefik">
+<meta property="og:url" content="https://simon020286.github.io/posts/2020-11-04-traefik-intro/">
+<meta property="og:site_name" content="T-Dev">
+<meta property="og:image" content="https://simon020286.github.io/images/favicon.ico">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="article:published_time" content="2020-11-10 12:50:05.227 +0000 UTC">
+</head>
+<body class=green>
+<div class="container center headings--one-size">
+<header class=header>
+<div class=header__inner>
+<div class=header__logo>
+<a href=/>
+<div class=logo>
+T-Dev
+</div>
+</a>
+</div>
+<div class=menu-trigger>menu</div>
+</div>
+<nav class=menu>
+<ul class="menu__inner menu__inner--desktop">
+<li><a href=/>Home</a></li>
+<li><a href=/posts>All posts</a></li>
+<li><a href=/tags>Tags</a></li>
+</ul>
+<ul class="menu__inner menu__inner--mobile">
+<li><a href=/>Home</a></li>
+<li><a href=/posts>All posts</a></li>
+<li><a href=/tags>Tags</a></li>
+</ul>
+</nav>
+</header>
+<div class=content>
+<div class=post>
+<h1 class=post-title>
+<a href=https://simon020286.github.io/posts/2020-11-04-traefik-intro/>Traefik - Intro</a></h1>
+<div class=post-meta>
+<span class=post-date>
+2020-11-10
+</span>
+</div>
+<span class=post-tags>
+#<a href=https://simon020286.github.io/tags/self-hosted/>self-hosted</a>&nbsp;
+#<a href=https://simon020286.github.io/tags/proxy/>proxy</a>&nbsp;
+#<a href=https://simon020286.github.io/tags/traefik/>traefik</a>&nbsp;
+</span>
+<div class=post-content><div>
+<p>Buongiorno,<br>
+oggi parleremo da <a href=https://doc.traefik.io/traefik/>Traefik</a>, un HTTP reverse proxy e load balancer.</p>
+<p><img src=https://doc.traefik.io/traefik/v1.7/img/architecture.png alt=architettura></p>
+<p>Io lo sto utilizzando per rendere accessibili dall&rsquo;esterno dei servizi hostati sul mio nas, come ad esempio Home Assistant e l&rsquo;ottimo password manager Bitwarden (di cui probabilmente parlerò su questo blog).<br>
+Si integra perfettamente con docker, è infatti in grado di leggere automaticamente le impostazioni da un container tramite label.<br>
+Vediamo ora come installarlo proprio tramite docker, più precisamente utilizzando docker-compose per semplificare le cose.</p>
+<p>Per prima cosa scriviamo il file di configurazione. Ci sono vari modi per configurare Traefik, via argomenti da linea di comando o via file traefik.yml, che è la strada che ho scelto io perché mi sembra più chiara. Ho commentato direttamente nel file le parti &ldquo;meno&rdquo; importanti.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>---
 
-global:
-  # Verifica la presenza di nuove versioni.
-  checkNewVersion: true
+<span style=color:#f92672>global</span>:
+  <span style=color:#75715e># Verifica la presenza di nuove versioni.</span>
+  <span style=color:#f92672>checkNewVersion</span>: <span style=color:#66d9ef>true</span>
 
-entryPoints:
-  http:
-    address: :80
-    forwardedHeaders:
-      insecure: true
-    proxyProtocol:
-      insecure: true
-  https:
-    address: :443
-    forwardedHeaders:
-      insecure: true
-    proxyProtocol:
-      insecure: true
+<span style=color:#f92672>entryPoints</span>:
+  <span style=color:#f92672>http</span>:
+    <span style=color:#f92672>address</span>: :<span style=color:#ae81ff>80</span>
+    <span style=color:#f92672>forwardedHeaders</span>:
+      <span style=color:#f92672>insecure</span>: <span style=color:#66d9ef>true</span>
+    <span style=color:#f92672>proxyProtocol</span>:
+      <span style=color:#f92672>insecure</span>: <span style=color:#66d9ef>true</span>
+  <span style=color:#f92672>https</span>:
+    <span style=color:#f92672>address</span>: :<span style=color:#ae81ff>443</span>
+    <span style=color:#f92672>forwardedHeaders</span>:
+      <span style=color:#f92672>insecure</span>: <span style=color:#66d9ef>true</span>
+    <span style=color:#f92672>proxyProtocol</span>:
+      <span style=color:#f92672>insecure</span>: <span style=color:#66d9ef>true</span>
 
-providers:
-  docker:
-    watch: true
-    exposedByDefault: false
-    endpoint: &quot;unix:///var/run/docker.sock&quot;
-  file:
-    directory: &quot;/etc/traefik/dynamic/&quot;
-    watch: true
+<span style=color:#f92672>providers</span>:
+  <span style=color:#f92672>docker</span>:
+    <span style=color:#f92672>watch</span>: <span style=color:#66d9ef>true</span>
+    <span style=color:#f92672>exposedByDefault</span>: <span style=color:#66d9ef>false</span>
+    <span style=color:#f92672>endpoint</span>: <span style=color:#e6db74>&#34;unix:///var/run/docker.sock&#34;</span>
+  <span style=color:#f92672>file</span>:
+    <span style=color:#f92672>directory</span>: <span style=color:#e6db74>&#34;/etc/traefik/dynamic/&#34;</span>
+    <span style=color:#f92672>watch</span>: <span style=color:#66d9ef>true</span>
     
-api:
-  # Visualizza l'interfaccia web della dashboard e permetti connessioni non sicure.
-  dashboard: true
-  insecure: true
+<span style=color:#f92672>api</span>:
+  <span style=color:#75715e># Visualizza l&#39;interfaccia web della dashboard e permetti connessioni non sicure.</span>
+  <span style=color:#f92672>dashboard</span>: <span style=color:#66d9ef>true</span>
+  <span style=color:#f92672>insecure</span>: <span style=color:#66d9ef>true</span>
  
-# Salva il log nel percorso specificato, con livello DEBUG.
-# Ovviamente una volta impostato e verificato il corretto funzionamento si può abbassare il livello.
-log:
-  filePath: &quot;/shared/logs/traefik/traefik.log&quot;
-  level: DEBUG
+<span style=color:#75715e># Salva il log nel percorso specificato, con livello DEBUG.</span>
+<span style=color:#75715e># Ovviamente una volta impostato e verificato il corretto funzionamento si può abbassare il livello.</span>
+<span style=color:#f92672>log</span>:
+  <span style=color:#f92672>filePath</span>: <span style=color:#e6db74>&#34;/shared/logs/traefik/traefik.log&#34;</span>
+  <span style=color:#f92672>level</span>: <span style=color:#ae81ff>DEBUG</span>
 
-# Salva il log delle chiamate nel percorso specificato.
-# E' possibile specificare dei filtri, nel mio caso solo le chiamate con condici di errore.
-accessLog:
-  filePath: &quot;/shared/logs/traefik/access.log&quot;
-  filters:
-    statusCodes: [&quot;400-599&quot;]
+<span style=color:#75715e># Salva il log delle chiamate nel percorso specificato.</span>
+<span style=color:#75715e># E&#39; possibile specificare dei filtri, nel mio caso solo le chiamate con condici di errore.</span>
+<span style=color:#f92672>accessLog</span>:
+  <span style=color:#f92672>filePath</span>: <span style=color:#e6db74>&#34;/shared/logs/traefik/access.log&#34;</span>
+  <span style=color:#f92672>filters</span>:
+    <span style=color:#f92672>statusCodes</span>: [<span style=color:#e6db74>&#34;400-599&#34;</span>]
 
-# Let's encrypt configuration
-certificatesResolvers:
-  le:
-    acme:
-      email: &lt;email&gt;
-      storage: /etc/traefik/acme/acme.json
-      tlschallenge: true
-</code></pre><p>Per prima cosa vengono definiti gli entry points sono i punti di ingresso che può accettare il nostro proxy.<br>Io mi attendo delle connessioni dalla porta 80 e 443, è possibile aggiungere molte altre opzioni, ma per questo approfondimento vi rimando alla guida ufficiale.<br>I providers sono le risorse da cui è possibile accettare le configurazioni dinamiche, ossia i servizi, le routers e i middlewares.</p><ul><li><p>docker: permette di creare delle configurazioni tramite le labels di un container.</p><ul><li>watch: true indica a traefik di rimanere in ascolto di modifiche sui containers, così non sarà necessario riavviare il server ad ogni modifica.</li><li>exposedByDefault: false, bisogna specificare in un container se esporlo a traefik, altrimenti per ogni nuovo container in esecuzione verrà creato un servizio.</li><li>endpoint: &ldquo;unix:///var/run/docker.sock&rdquo; il percorso del sock di docker per permettere la comunicazione con esso. Nel nostro caso sarà l&rsquo;istanza di docker installata sul sistema host, come vedremo in seguito.</li></ul></li><li><p>file: permette di creare le configurazioni tramite file o files yaml o toml.</p><ul><li>directory: &ldquo;/etc/traefik/dynamic/&rdquo; ho optato per indicare una cartella in modo da poter suddividere in modo più ordinato le impostazioni. E&rsquo; possibili anche indicare un singolo file tramite l&rsquo;impostazione <code>filename</code>.</li><li>watch: true come sopra.</li></ul></li></ul><p>L&rsquo;altra parte molto importante del file è <code>certificatesResolvers</code>, cioè il modo in cui risolvere i certificati SSL.<br>Nel mio caso utilizzo Let&rsquo;s Encrypt, un servizio gratuito che permette la generazione di certificati. Traefik integra già tutto il funzionamento basta utilizzare come provider <code>acme</code>. Le altre impostazioni sono molto semplici, una email valida per ricevere avvisi di scadenza dei certificati e il percorso dove salvare gli stessi.</p><p>Definita la configurazione base possiamo passare alla creazione del file docker-compose.yml per la creazione del container.</p><pre><code class=language-yaml>version: &quot;3&quot;
+<span style=color:#75715e># Let&#39;s encrypt configuration</span>
+<span style=color:#f92672>certificatesResolvers</span>:
+  <span style=color:#f92672>le</span>:
+    <span style=color:#f92672>acme</span>:
+      <span style=color:#f92672>email</span>: <span style=color:#ae81ff>&lt;email&gt;</span>
+      <span style=color:#f92672>storage</span>: <span style=color:#ae81ff>/etc/traefik/acme/acme.json</span>
+      <span style=color:#f92672>tlschallenge</span>: <span style=color:#66d9ef>true</span>
+</code></pre></div><p>Per prima cosa vengono definiti gli entry points sono i punti di ingresso che può accettare il nostro proxy.<br>
+Io mi attendo delle connessioni dalla porta 80 e 443, è possibile aggiungere molte altre opzioni, ma per questo approfondimento vi rimando alla guida ufficiale.<br>
+I providers sono le risorse da cui è possibile accettare le configurazioni dinamiche, ossia i servizi, le routers e i middlewares.</p>
+<ul>
+<li>
+<p>docker: permette di creare delle configurazioni tramite le labels di un container.</p>
+<ul>
+<li>watch: true indica a traefik di rimanere in ascolto di modifiche sui containers, così non sarà necessario riavviare il server ad ogni modifica.</li>
+<li>exposedByDefault: false, bisogna specificare in un container se esporlo a traefik, altrimenti per ogni nuovo container in esecuzione verrà creato un servizio.</li>
+<li>endpoint: &ldquo;unix:///var/run/docker.sock&rdquo; il percorso del sock di docker per permettere la comunicazione con esso. Nel nostro caso sarà l&rsquo;istanza di docker installata sul sistema host, come vedremo in seguito.</li>
+</ul>
+</li>
+<li>
+<p>file: permette di creare le configurazioni tramite file o files yaml o toml.</p>
+<ul>
+<li>directory: &ldquo;/etc/traefik/dynamic/&rdquo; ho optato per indicare una cartella in modo da poter suddividere in modo più ordinato le impostazioni. E' possibili anche indicare un singolo file tramite l&rsquo;impostazione <code>filename</code>.</li>
+<li>watch: true come sopra.</li>
+</ul>
+</li>
+</ul>
+<p>L&rsquo;altra parte molto importante del file è <code>certificatesResolvers</code>, cioè il modo in cui risolvere i certificati SSL.<br>
+Nel mio caso utilizzo Let&rsquo;s Encrypt, un servizio gratuito che permette la generazione di certificati. Traefik integra già tutto il funzionamento basta utilizzare come provider <code>acme</code>. Le altre impostazioni sono molto semplici, una email valida per ricevere avvisi di scadenza dei certificati e il percorso dove salvare gli stessi.</p>
+<p>Definita la configurazione base possiamo passare alla creazione del file docker-compose.yml per la creazione del container.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>version</span>: <span style=color:#e6db74>&#34;3&#34;</span>
 
-networks:
-  trproxy:
-    driver: bridge
+<span style=color:#f92672>networks</span>:
+  <span style=color:#f92672>trproxy</span>:
+    <span style=color:#f92672>driver</span>: <span style=color:#ae81ff>bridge</span>
 
-services:
-  traefik:
-    container_name: traefik
-    image: traefik:latest
-    restart: unless-stopped
-    networks:
-      - trproxy
-    environment:
-      - TZ:&quot;Europe/Rome&quot;
-    ports:
-      - 8080:8080
-      - 80:80
-      - 443:443
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - &lt;dir&gt;/traefik.yml:/etc/traefik/traefik.yml:ro
-      - &lt;dir&gt;/dynamic:/etc/traefik/dynamic/:ro
-      - &lt;dir&gt;/acme/acme.json:/etc/traefik/acme/acme.json
-      - &lt;dir&gt;/shared:/shared
-</code></pre><p>Per prima cosa viene definita la connessione, verrà utilizzata dai containers che vogliono collegarsi a traeik.<br>Le tre porte esposte sono:</p><ul><li>8080 dedicata alla dashboard</li><li>80 per le connessioni non sicure</li><li>443 per le connessioni sicure</li></ul><p>I volumi invece:</p><ul><li>/var/run/docker.sock percorso sock docker installato sull&rsquo;host</li></ul><p>Scritto il file <code>docker-compose.yml</code> lanciamo il servizio con <code>docker-compose up -d</code>. In base alla connessione e potenza della macchina host ci può volere anche qualche minuto. Quando sarà tutto finito potrete raggiungere la dashboard da browser tramite http:&lt;ip della macchina su cui lo avete installato&gt;:8080.<br>Saranno già presenti un paio di servizi, tranquilli sono quelli interni che vengono creati dal proxy.</p><p>Con questo la piccola guida è finita.<br>Spero di esservi stato utile.</p></div></article><div class=blog-post-comments><div id=disqus_thread><script type=text/javascript>(function(){var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='devdaddy-1';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div><div id=footer-post-container><div id=footer-post><div id=nav-footer style=display:none><ul><li><a href=/>Home</a></li><li><a href=/posts>All posts</a></li><li><a href=/tags>Tags</a></li></ul></div><div id=toc-footer style=display:none></div><div id=share-footer style=display:none><ul><li><a class=icon href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f"><i class="fab fa-facebook fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="https://twitter.com/share?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&text=Traefik%20-%20Intro"><i class="fab fa-twitter fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-linkedin fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&is_video=false&description=Traefik%20-%20Intro"><i class="fab fa-pinterest fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="mailto:?subject=Traefik%20-%20Intro&body=Check out this article: https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f"><i class="fas fa-envelope fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="https://getpocket.com/save?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-get-pocket fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="http://reddit.com/submit?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-reddit fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-stumbleupon fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="http://digg.com/submit?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&title=Traefik%20-%20Intro"><i class="fab fa-digg fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="http://www.tumblr.com/share/link?url=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&name=Traefik%20-%20Intro&description=Introduzione%20a%20traefik"><i class="fab fa-tumblr fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fsimon020286.github.io%2fposts%2f2020-11-04-traefik-intro%2f&t=Traefik%20-%20Intro"><i class="fab fa-hacker-news fa-lg" aria-hidden=true></i></a></li></ul></div><div id=actions-footer><a id=menu class=icon href=# onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden=true></i>Menu</a>
-<a id=toc class=icon href=# onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden=true></i>TOC</a>
-<a id=share class=icon href=# onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden=true></i>share</a>
-<a id=top style=display:none class=icon href=# onclick="$('html, body').animate({scrollTop:0},'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden=true></i>Top</a></div></div></div><footer id=footer><div class=footer-left>Copyright &copy; 2021 Dev Daddy</div><div class=footer-right><nav><ul><li><a href=/>Home</a></li><li><a href=/posts>All posts</a></li><li><a href=/tags>Tags</a></li></ul></nav></div></footer></div></body><link rel=stylesheet href=/lib/font-awesome/css/all.min.css><script src=/lib/jquery/jquery.min.js></script><script src=/js/main.js></script></html>
+<span style=color:#f92672>services</span>:
+  <span style=color:#f92672>traefik</span>:
+    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>traefik</span>
+    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>traefik:latest</span>
+    <span style=color:#f92672>restart</span>: <span style=color:#ae81ff>unless-stopped</span>
+    <span style=color:#f92672>networks</span>:
+      - <span style=color:#ae81ff>trproxy</span>
+    <span style=color:#f92672>environment</span>:
+      - <span style=color:#ae81ff>TZ:&#34;Europe/Rome&#34;</span>
+    <span style=color:#f92672>ports</span>:
+      - <span style=color:#ae81ff>8080</span>:<span style=color:#ae81ff>8080</span>
+      - <span style=color:#ae81ff>80</span>:<span style=color:#ae81ff>80</span>
+      - <span style=color:#ae81ff>443</span>:<span style=color:#ae81ff>443</span>
+    <span style=color:#f92672>volumes</span>:
+      - <span style=color:#ae81ff>/var/run/docker.sock:/var/run/docker.sock:ro</span>
+      - <span style=color:#ae81ff>&lt;dir&gt;/traefik.yml:/etc/traefik/traefik.yml:ro</span>
+      - <span style=color:#ae81ff>&lt;dir&gt;/dynamic:/etc/traefik/dynamic/:ro</span>
+      - <span style=color:#ae81ff>&lt;dir&gt;/acme/acme.json:/etc/traefik/acme/acme.json</span>
+      - <span style=color:#ae81ff>&lt;dir&gt;/shared:/shared</span>
+</code></pre></div><p>Per prima cosa viene definita la connessione, verrà utilizzata dai containers che vogliono collegarsi a traeik.<br>
+Le tre porte esposte sono:</p>
+<ul>
+<li>8080 dedicata alla dashboard</li>
+<li>80 per le connessioni non sicure</li>
+<li>443 per le connessioni sicure</li>
+</ul>
+<p>I volumi invece:</p>
+<ul>
+<li>/var/run/docker.sock percorso sock docker installato sull&rsquo;host</li>
+</ul>
+<p>Scritto il file <code>docker-compose.yml</code> lanciamo il servizio con <code>docker-compose up -d</code>. In base alla connessione e potenza della macchina host ci può volere anche qualche minuto. Quando sarà tutto finito potrete raggiungere la dashboard da browser tramite http:&lt;ip della macchina su cui lo avete installato>:8080.<br>
+Saranno già presenti un paio di servizi, tranquilli sono quelli interni che vengono creati dal proxy.</p>
+<p>Con questo la piccola guida è finita.<br>
+Spero di esservi stato utile.</p>
+</div></div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h>Read other posts</span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<span class="button previous">
+<a href=https://simon020286.github.io/posts/2020-11-12-traefik-middlewares/>
+<span class=button__icon>←</span>
+<span class=button__text>Traefik - Middlewares</span>
+</a>
+</span>
+<span class="button next">
+<a href=https://simon020286.github.io/posts/update-ddns/>
+<span class=button__text>Update Ddns</span>
+<span class=button__icon>→</span>
+</a>
+</span>
+</div>
+</div>
+</div>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class=copyright>
+<span>© 2021 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span>
+</div>
+</div>
+</footer>
+<script src=https://simon020286.github.io/assets/main.js></script>
+<script src=https://simon020286.github.io/assets/prism.js></script>
+</div>
+</body>
+</html>

@@ -1,4 +1,119 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>proxy on Dev Daddy</title><link>https://simon020286.github.io/tags/proxy/</link><description>Recent content in proxy on Dev Daddy</description><generator>Hugo -- gohugo.io</generator><language>it-IT</language><lastBuildDate>Tue, 10 Nov 2020 12:50:05 +0000</lastBuildDate><atom:link href="https://simon020286.github.io/tags/proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>Traefik - Intro</title><link>https://simon020286.github.io/posts/2020-11-04-traefik-intro/</link><pubDate>Tue, 10 Nov 2020 12:50:05 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-04-traefik-intro/</guid><description>Buongiorno,
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>proxy on T-Dev</title><link>https://simon020286.github.io/tags/proxy/</link><description>Recent content in proxy on T-Dev</description><generator>Hugo -- gohugo.io</generator><language>it-IT</language><lastBuildDate>Tue, 10 Nov 2020 12:50:05 +0000</lastBuildDate><atom:link href="https://simon020286.github.io/tags/proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>Traefik - Intro</title><link>https://simon020286.github.io/posts/2020-11-04-traefik-intro/</link><pubDate>Tue, 10 Nov 2020 12:50:05 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-04-traefik-intro/</guid><description>Buongiorno,
 oggi parleremo da Traefik, un HTTP reverse proxy e load balancer.
-Io lo sto utilizzando per rendere accessibili dall&amp;rsquo;esterno dei servizi hostati sul mio nas, come ad esempio Home Assistant e l&amp;rsquo;ottimo password manager Bitwarden (di cui probabilmente parlerò su questo blog). Si integra perfettamente con docker, è infatti in grado di leggere automaticamente le impostazioni da un container tramite label.
-Vediamo ora come installarlo proprio tramite docker, più precisamente utilizzando docker-compose per semplificare le cose.</description></item></channel></rss>
+Io lo sto utilizzando per rendere accessibili dall&amp;rsquo;esterno dei servizi hostati sul mio nas, come ad esempio Home Assistant e l&amp;rsquo;ottimo password manager Bitwarden (di cui probabilmente parlerò su questo blog).
+Si integra perfettamente con docker, è infatti in grado di leggere automaticamente le impostazioni da un container tramite label.
+Vediamo ora come installarlo proprio tramite docker, più precisamente utilizzando docker-compose per semplificare le cose.</description><content>&lt;p>Buongiorno,&lt;br>
+oggi parleremo da &lt;a href="https://doc.traefik.io/traefik/">Traefik&lt;/a>, un HTTP reverse proxy e load balancer.&lt;/p>
+&lt;p>&lt;img src="https://doc.traefik.io/traefik/v1.7/img/architecture.png" alt="architettura">&lt;/p>
+&lt;p>Io lo sto utilizzando per rendere accessibili dall&amp;rsquo;esterno dei servizi hostati sul mio nas, come ad esempio Home Assistant e l&amp;rsquo;ottimo password manager Bitwarden (di cui probabilmente parlerò su questo blog).&lt;br>
+Si integra perfettamente con docker, è infatti in grado di leggere automaticamente le impostazioni da un container tramite label.&lt;br>
+Vediamo ora come installarlo proprio tramite docker, più precisamente utilizzando docker-compose per semplificare le cose.&lt;/p>
+&lt;p>Per prima cosa scriviamo il file di configurazione. Ci sono vari modi per configurare Traefik, via argomenti da linea di comando o via file traefik.yml, che è la strada che ho scelto io perché mi sembra più chiara. Ho commentato direttamente nel file le parti &amp;ldquo;meno&amp;rdquo; importanti.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
+&lt;span style="color:#f92672">global&lt;/span>:
+&lt;span style="color:#75715e"># Verifica la presenza di nuove versioni.&lt;/span>
+&lt;span style="color:#f92672">checkNewVersion&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">entryPoints&lt;/span>:
+&lt;span style="color:#f92672">http&lt;/span>:
+&lt;span style="color:#f92672">address&lt;/span>: :&lt;span style="color:#ae81ff">80&lt;/span>
+&lt;span style="color:#f92672">forwardedHeaders&lt;/span>:
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">proxyProtocol&lt;/span>:
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">https&lt;/span>:
+&lt;span style="color:#f92672">address&lt;/span>: :&lt;span style="color:#ae81ff">443&lt;/span>
+&lt;span style="color:#f92672">forwardedHeaders&lt;/span>:
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">proxyProtocol&lt;/span>:
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">providers&lt;/span>:
+&lt;span style="color:#f92672">docker&lt;/span>:
+&lt;span style="color:#f92672">watch&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">exposedByDefault&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#f92672">endpoint&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;unix:///var/run/docker.sock&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">file&lt;/span>:
+&lt;span style="color:#f92672">directory&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/etc/traefik/dynamic/&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">watch&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">api&lt;/span>:
+&lt;span style="color:#75715e"># Visualizza l&amp;#39;interfaccia web della dashboard e permetti connessioni non sicure.&lt;/span>
+&lt;span style="color:#f92672">dashboard&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#75715e"># Salva il log nel percorso specificato, con livello DEBUG.&lt;/span>
+&lt;span style="color:#75715e"># Ovviamente una volta impostato e verificato il corretto funzionamento si può abbassare il livello.&lt;/span>
+&lt;span style="color:#f92672">log&lt;/span>:
+&lt;span style="color:#f92672">filePath&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/shared/logs/traefik/traefik.log&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">level&lt;/span>: &lt;span style="color:#ae81ff">DEBUG&lt;/span>
+&lt;span style="color:#75715e"># Salva il log delle chiamate nel percorso specificato.&lt;/span>
+&lt;span style="color:#75715e"># E&amp;#39; possibile specificare dei filtri, nel mio caso solo le chiamate con condici di errore.&lt;/span>
+&lt;span style="color:#f92672">accessLog&lt;/span>:
+&lt;span style="color:#f92672">filePath&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/shared/logs/traefik/access.log&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">filters&lt;/span>:
+&lt;span style="color:#f92672">statusCodes&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;400-599&amp;#34;&lt;/span>]
+&lt;span style="color:#75715e"># Let&amp;#39;s encrypt configuration&lt;/span>
+&lt;span style="color:#f92672">certificatesResolvers&lt;/span>:
+&lt;span style="color:#f92672">le&lt;/span>:
+&lt;span style="color:#f92672">acme&lt;/span>:
+&lt;span style="color:#f92672">email&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;email&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">storage&lt;/span>: &lt;span style="color:#ae81ff">/etc/traefik/acme/acme.json&lt;/span>
+&lt;span style="color:#f92672">tlschallenge&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Per prima cosa vengono definiti gli entry points sono i punti di ingresso che può accettare il nostro proxy.&lt;br>
+Io mi attendo delle connessioni dalla porta 80 e 443, è possibile aggiungere molte altre opzioni, ma per questo approfondimento vi rimando alla guida ufficiale.&lt;br>
+I providers sono le risorse da cui è possibile accettare le configurazioni dinamiche, ossia i servizi, le routers e i middlewares.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>docker: permette di creare delle configurazioni tramite le labels di un container.&lt;/p>
+&lt;ul>
+&lt;li>watch: true indica a traefik di rimanere in ascolto di modifiche sui containers, così non sarà necessario riavviare il server ad ogni modifica.&lt;/li>
+&lt;li>exposedByDefault: false, bisogna specificare in un container se esporlo a traefik, altrimenti per ogni nuovo container in esecuzione verrà creato un servizio.&lt;/li>
+&lt;li>endpoint: &amp;ldquo;unix:///var/run/docker.sock&amp;rdquo; il percorso del sock di docker per permettere la comunicazione con esso. Nel nostro caso sarà l&amp;rsquo;istanza di docker installata sul sistema host, come vedremo in seguito.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>file: permette di creare le configurazioni tramite file o files yaml o toml.&lt;/p>
+&lt;ul>
+&lt;li>directory: &amp;ldquo;/etc/traefik/dynamic/&amp;rdquo; ho optato per indicare una cartella in modo da poter suddividere in modo più ordinato le impostazioni. E' possibili anche indicare un singolo file tramite l&amp;rsquo;impostazione &lt;code>filename&lt;/code>.&lt;/li>
+&lt;li>watch: true come sopra.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>L&amp;rsquo;altra parte molto importante del file è &lt;code>certificatesResolvers&lt;/code>, cioè il modo in cui risolvere i certificati SSL.&lt;br>
+Nel mio caso utilizzo Let&amp;rsquo;s Encrypt, un servizio gratuito che permette la generazione di certificati. Traefik integra già tutto il funzionamento basta utilizzare come provider &lt;code>acme&lt;/code>. Le altre impostazioni sono molto semplici, una email valida per ricevere avvisi di scadenza dei certificati e il percorso dove salvare gli stessi.&lt;/p>
+&lt;p>Definita la configurazione base possiamo passare alla creazione del file docker-compose.yml per la creazione del container.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+&lt;span style="color:#f92672">trproxy&lt;/span>:
+&lt;span style="color:#f92672">driver&lt;/span>: &lt;span style="color:#ae81ff">bridge&lt;/span>
+&lt;span style="color:#f92672">services&lt;/span>:
+&lt;span style="color:#f92672">traefik&lt;/span>:
+&lt;span style="color:#f92672">container_name&lt;/span>: &lt;span style="color:#ae81ff">traefik&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">traefik:latest&lt;/span>
+&lt;span style="color:#f92672">restart&lt;/span>: &lt;span style="color:#ae81ff">unless-stopped&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+- &lt;span style="color:#ae81ff">trproxy&lt;/span>
+&lt;span style="color:#f92672">environment&lt;/span>:
+- &lt;span style="color:#ae81ff">TZ:&amp;#34;Europe/Rome&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#ae81ff">8080&lt;/span>:&lt;span style="color:#ae81ff">8080&lt;/span>
+- &lt;span style="color:#ae81ff">80&lt;/span>:&lt;span style="color:#ae81ff">80&lt;/span>
+- &lt;span style="color:#ae81ff">443&lt;/span>:&lt;span style="color:#ae81ff">443&lt;/span>
+&lt;span style="color:#f92672">volumes&lt;/span>:
+- &lt;span style="color:#ae81ff">/var/run/docker.sock:/var/run/docker.sock:ro&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/traefik.yml:/etc/traefik/traefik.yml:ro&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/dynamic:/etc/traefik/dynamic/:ro&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/acme/acme.json:/etc/traefik/acme/acme.json&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/shared:/shared&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Per prima cosa viene definita la connessione, verrà utilizzata dai containers che vogliono collegarsi a traeik.&lt;br>
+Le tre porte esposte sono:&lt;/p>
+&lt;ul>
+&lt;li>8080 dedicata alla dashboard&lt;/li>
+&lt;li>80 per le connessioni non sicure&lt;/li>
+&lt;li>443 per le connessioni sicure&lt;/li>
+&lt;/ul>
+&lt;p>I volumi invece:&lt;/p>
+&lt;ul>
+&lt;li>/var/run/docker.sock percorso sock docker installato sull&amp;rsquo;host&lt;/li>
+&lt;/ul>
+&lt;p>Scritto il file &lt;code>docker-compose.yml&lt;/code> lanciamo il servizio con &lt;code>docker-compose up -d&lt;/code>. In base alla connessione e potenza della macchina host ci può volere anche qualche minuto. Quando sarà tutto finito potrete raggiungere la dashboard da browser tramite http:&amp;lt;ip della macchina su cui lo avete installato&amp;gt;:8080.&lt;br>
+Saranno già presenti un paio di servizi, tranquilli sono quelli interni che vengono creati dal proxy.&lt;/p>
+&lt;p>Con questo la piccola guida è finita.&lt;br>
+Spero di esservi stato utile.&lt;/p></content></item></channel></rss>

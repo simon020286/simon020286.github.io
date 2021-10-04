@@ -1,23 +1,512 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Dev Daddy</title><link>https://simon020286.github.io/posts/</link><description>Recent content in Posts on Dev Daddy</description><generator>Hugo -- gohugo.io</generator><language>it-IT</language><lastBuildDate>Fri, 06 Aug 2021 09:02:15 +0000</lastBuildDate><atom:link href="https://simon020286.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Visual Studio Code - Docker</title><link>https://simon020286.github.io/posts/2021-01-21-visual-studio-code-docker/</link><pubDate>Fri, 06 Aug 2021 09:02:15 +0000</pubDate><guid>https://simon020286.github.io/posts/2021-01-21-visual-studio-code-docker/</guid><description>Ciao a tutti,
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on T-Dev</title><link>https://simon020286.github.io/posts/</link><description>Recent content in Posts on T-Dev</description><generator>Hugo -- gohugo.io</generator><language>it-IT</language><lastBuildDate>Fri, 06 Aug 2021 09:02:15 +0000</lastBuildDate><atom:link href="https://simon020286.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Visual Studio Code - Docker</title><link>https://simon020286.github.io/posts/2021-01-21-visual-studio-code-docker/</link><pubDate>Fri, 06 Aug 2021 09:02:15 +0000</pubDate><guid>https://simon020286.github.io/posts/2021-01-21-visual-studio-code-docker/</guid><description>Ciao a tutti,
 oggi vi mostro il mio ambiente di sviluppo, programmi, linguaggi e tools che utilizzo.
 Per prima cosa come IDE (Integrated development environment) utilizzo l&amp;rsquo;ottimo Visual Studio Code di Microsoft.
 Trovate tutte le informazioni qui.
 In breve è un software multi-piattaforma, infatti lo trovate per Windows, MacOS e Linux, integra il controllo della versione del codice tramite git, esistono un&amp;rsquo;infinità di estensioni per facilitare lo sviluppo.
-Grazie alle tantissime estensioni disponibili è possibile programmare in qualsiasi linguaggio, ma in questo articolo vedremo come sviluppare in golang, sfruttando un container docker in cui installare il compilatore e tutto il necessario in modo da non &amp;ldquo;sporcare&amp;rdquo; il computer host.</description></item><item><title>Risolvere problemi di boot da SSD su Raspberry Pi4</title><link>https://simon020286.github.io/posts/2021-04-14-risolvere-problemi-di-boot-da-ssd-su-raspberry-pi4/</link><pubDate>Wed, 14 Apr 2021 15:11:49 +0000</pubDate><guid>https://simon020286.github.io/posts/2021-04-14-risolvere-problemi-di-boot-da-ssd-su-raspberry-pi4/</guid><description>Buongiorno a tutti,
+Grazie alle tantissime estensioni disponibili è possibile programmare in qualsiasi linguaggio, ma in questo articolo vedremo come sviluppare in golang, sfruttando un container docker in cui installare il compilatore e tutto il necessario in modo da non &amp;ldquo;sporcare&amp;rdquo; il computer host.</description><content>&lt;p>Ciao a tutti,&lt;br>
+oggi vi mostro il mio ambiente di sviluppo, programmi, linguaggi e tools che utilizzo.&lt;br>
+Per prima cosa come IDE (Integrated development environment) utilizzo l&amp;rsquo;ottimo Visual Studio Code di Microsoft.&lt;br>
+Trovate tutte le informazioni &lt;a href="https://code.visualstudio.com/">qui&lt;/a>.&lt;br>
+In breve è un software multi-piattaforma, infatti lo trovate per Windows, MacOS e Linux, integra il controllo della versione del codice tramite git, esistono un&amp;rsquo;infinità di estensioni per facilitare lo sviluppo.&lt;/p>
+&lt;p>&lt;img src="https://res.cloudinary.com/drg2utgxr/image/upload/v1611249440/posts/vcode/home-screenshot-win-lg_vzx2kh.png" alt="visual studio code" title="Visual Studio Code">&lt;/p>
+&lt;p>Grazie alle tantissime estensioni disponibili è possibile programmare in qualsiasi linguaggio, ma in questo articolo vedremo come sviluppare in golang, sfruttando un container docker in cui installare il compilatore e tutto il necessario in modo da non &amp;ldquo;sporcare&amp;rdquo; il computer host.&lt;/p>
+&lt;p>I prerequisti sono pochissimi, aver installato Docker, Visual Studio Code e l&amp;rsquo;estensione Remote - Containers.
+Fatto questo basterà creare la cartella del proprio progetto e al suo interno una cartella chiamata &lt;em>.devcontainer,&lt;/em>&lt;br>
+all&amp;rsquo;interno di essa i seguenti file:&lt;/p>
+&lt;p>&lt;em>Dockerfile&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-dockerfile" data-lang="dockerfile">&lt;span style="color:#66d9ef">FROM&lt;/span>&lt;span style="color:#e6db74"> golang:1.16&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span>&lt;span style="color:#66d9ef">ENV&lt;/span> DEBIAN_FRONTEND&lt;span style="color:#f92672">=&lt;/span>noninteractive
+&lt;span style="color:#66d9ef">RUN&lt;/span> apt-get update &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> apt-get -y install --no-install-recommends apt-utils 2&amp;gt;&amp;amp;&lt;span style="color:#ae81ff">1&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span>&lt;span style="color:#75715e"># Verify git, process tools, lsb-release (common in install instructions for CLIs) installed.&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span>&lt;span style="color:#66d9ef">RUN&lt;/span> apt-get -y install git iproute2 procps lsb-release&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span>&lt;span style="color:#75715e"># Install Go tools.&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span>&lt;span style="color:#66d9ef">RUN&lt;/span> go env -w GO111MODULE&lt;span style="color:#f92672">=&lt;/span>off &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> apt-get update &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#75715e"># Install gocode-gomod.&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> go get -x -d github.com/stamblerre/gocode 2&amp;gt;&amp;amp;&lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> go build -o gocode-gomod github.com/stamblerre/gocode &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> mv gocode-gomod $GOPATH/bin/ &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#75715e"># Install other tools.&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> go get -u &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> golang.org/x/tools/gopls &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> github.com/stamblerre/gocode &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> github.com/uudashr/gopkgs/cmd/gopkgs &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> github.com/ramya-rao-a/go-outline &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> github.com/acroca/go-symbols &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> golang.org/x/tools/cmd/guru &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> golang.org/x/tools/cmd/gorename &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> github.com/go-delve/delve/cmd/dlv &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> github.com/stamblerre/gocode &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> github.com/rogpeppe/godef &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> golang.org/x/tools/cmd/goimports 2&amp;gt;&amp;amp;&lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#75715e"># Clean up.&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> apt-get autoremove -y &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> apt-get clean -y &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> rm -rf /var/lib/apt/lists/* &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> go env -w GO111MODULE&lt;span style="color:#f92672">=&lt;/span>on&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span>&lt;span style="color:#75715e"># Revert workaround at top layer.&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span>&lt;span style="color:#66d9ef">ENV&lt;/span> DEBIAN_FRONTEND&lt;span style="color:#f92672">=&lt;/span>dialog
+&lt;span style="color:#75715e"># Expose service ports.&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">&lt;/span>&lt;span style="color:#66d9ef">EXPOSE&lt;/span>&lt;span style="color:#e6db74"> 8000&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>devcontainer.json&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dockerFile&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;./Dockerfile&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;appPort&amp;#34;&lt;/span>: [
+&lt;span style="color:#e6db74">&amp;#34;8000:8000&amp;#34;&lt;/span>
+],
+&lt;span style="color:#f92672">&amp;#34;extensions&amp;#34;&lt;/span>: [
+&lt;span style="color:#e6db74">&amp;#34;golang.go&amp;#34;&lt;/span>
+]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Fatto questo Visual Studio Code ti chiederà se vuoi aprire il workspace all&amp;rsquo;interno del container, rispondere di si e attendere che docker crei il container. Probabilmente alla fine del processo vi verrà suggerito di installare alcuni tool di golang, accettate e proseguite.&lt;br>
+Dopo qualche secondo sarà possibile iniziare a sviluppare normalmente.&lt;br>
+La cosa bella di questo processo è che i file che scriverete saranno fisicamente sul sistema host, quindi navigabili e gestibile dal file manager, ma tutte le librerie e eseguibili di go saranno all&amp;rsquo;interno del container.&lt;br>
+Questo rende più semplice la gestione delle varie versione di golang e delle dipendenze dei propri progetti.&lt;br>
+Ovviamente tutto questo è possibile utilizzarlo per molti linguaggi di programmazione ad esempio Python, Flutter, C# e molti altri.&lt;/p>
+&lt;p>Spero di avervi aiutato e fatto scoprire qualcosa di nuovo.&lt;br>
+Come al solito contattatemi pure nei commenti se avete bisogno di aiuto.&lt;/p></content></item><item><title>Risolvere problemi di boot da SSD su Raspberry Pi4</title><link>https://simon020286.github.io/posts/2021-04-14-risolvere-problemi-di-boot-da-ssd-su-raspberry-pi4/</link><pubDate>Wed, 14 Apr 2021 15:11:49 +0000</pubDate><guid>https://simon020286.github.io/posts/2021-04-14-risolvere-problemi-di-boot-da-ssd-su-raspberry-pi4/</guid><description>Buongiorno a tutti,
 recentemente ho comprato un Raspberry Pi 4 8GB di Ram da utilizzare come pc per la famiglia, collegato alla tv, in modo da poter navigare comodamente su internet, editare qualche documento, stampare ecc. ecc. insomma un utilizzo saltuario e che non richiede requisiti hardware eccessivi.
-Per migliorare un po&amp;rsquo; l&amp;rsquo;esperienza d&amp;rsquo;uso ho deciso di utilizzare come archivio primario un SSD Kingston da 240GB comprato per poche decine di euro su Amazon.</description></item><item><title>Bitwarden</title><link>https://simon020286.github.io/posts/2020-11-12-bitwarden/</link><pubDate>Wed, 02 Dec 2020 10:42:33 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-12-bitwarden/</guid><description>Buongiorno a tutti, eccoci con un nuovo articolo.
+Per migliorare un po' l&amp;rsquo;esperienza d&amp;rsquo;uso ho deciso di utilizzare come archivio primario un SSD Kingston da 240GB comprato per poche decine di euro su Amazon.</description><content>&lt;p>Buongiorno a tutti,&lt;br>
+recentemente ho comprato un Raspberry Pi 4 8GB di Ram da utilizzare come pc per la famiglia, collegato alla tv, in modo da poter navigare comodamente su internet, editare qualche documento, stampare ecc. ecc. insomma un utilizzo saltuario e che non richiede requisiti hardware eccessivi.&lt;/p>
+&lt;p>Per migliorare un po' l&amp;rsquo;esperienza d&amp;rsquo;uso ho deciso di utilizzare come archivio primario un SSD Kingston da 240GB comprato per poche decine di euro su Amazon. Il boot e l&amp;rsquo;esperienza generale sarebbe stata molto più veloce e fluida.&lt;br>
+Ovviamente, come capita sempre a me, non potevano che esserci dei problemi, infatti seguendo tutte le guide disponibili online non c&amp;rsquo;era verso di avviare qualsiasi sistema dalla porta USB3, ma solo dalla USB2, perdendo così parte del vantaggio dell&amp;rsquo;utilizzo dell&amp;rsquo;SSD.&lt;br>
+Indagando un po' ho scoperto che la causa è il controllore utilizzato dall&amp;rsquo;adattatore, nel mio caso un JMicron, ma capita la causa non riuscivo a trovare nessuna soluzione, quando oramai mi stavo per arrendere mi sono imbattuto in questo articolo.&lt;br>
+&lt;a href="https://www.raspberrypi.org/forums/viewtopic.php?t=245931">https://www.raspberrypi.org/forums/viewtopic.php?t=245931&lt;/a>&lt;/p>
+&lt;p>In pratica per far funzionare correttamente l&amp;rsquo;SSD è sufficiente aprire un terminale e dare &lt;code>lsusb&lt;/code> dopo aver collegato l&amp;rsquo;SSD, se non avete modo di utilizzare il raspberry avviandolo da scheda di memoria, basta collegare l&amp;rsquo;SSD a una delle porte USB2.&lt;/p>
+&lt;p>&lt;img src="https://res.cloudinary.com/drg2utgxr/image/upload/v1618490056/posts/risolvere-problemi-di-boot-da-ssd-su-raspberry-pi4%20/2021-04-14_17-28_hcttky.png" alt="lsusb" title="Terminale">&lt;/p>
+&lt;p>Ora basta aggiungere all&amp;rsquo;inizio del file &lt;code>/boot/cmdline.txt&lt;/code>, ovviamente quello che risiede sull&amp;rsquo;SSD, la seguente stringa &lt;code>usb-storage.quirks=aaaa:bbbb:u&lt;/code>, dove aaaa:bbbb è l&amp;rsquo;id trovato in precedenza.&lt;/p>
+&lt;p>Riavviate il raspberry con l&amp;rsquo;SSD collegato a una posta USB3 e godetevi il sistema alla massima velocità.&lt;/p></content></item><item><title>Bitwarden</title><link>https://simon020286.github.io/posts/2020-11-12-bitwarden/</link><pubDate>Wed, 02 Dec 2020 10:42:33 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-12-bitwarden/</guid><description>Buongiorno a tutti, eccoci con un nuovo articolo.
 Oggi vedremo come utilizzare un password manager il cui server gira interamente sul tuo host personale.
-Iniziamo col dire che come server non utilizzeremo Bitwarden ufficiale, ma una versione compatibile Bitwarden_Rs, scritto in Rust che implementa quasi tutte le API ufficiali. E&amp;rsquo; molto più leggero, completamente gratuito, e in più utilizza l&amp;rsquo;app e le estensioni per browser ufficiali. Come detto nell&amp;rsquo;articolo dedicato a Traefik (link) è possibile impostare l&amp;rsquo;utilizzo del reverse proxy tramite labels, come potete vedere nel docker-compose.</description></item><item><title>Traefik - Middlewares</title><link>https://simon020286.github.io/posts/2020-11-12-traefik-middlewares/</link><pubDate>Thu, 12 Nov 2020 14:44:54 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-12-traefik-middlewares/</guid><description>Buongiorno a tutti,
+Iniziamo col dire che come server non utilizzeremo Bitwarden ufficiale, ma una versione compatibile Bitwarden_Rs,
+scritto in Rust che implementa quasi tutte le API ufficiali. E' molto più leggero, completamente gratuito, e in più utilizza l&amp;rsquo;app e le estensioni per browser ufficiali.
+Come detto nell&amp;rsquo;articolo dedicato a Traefik (link) è possibile impostare l&amp;rsquo;utilizzo del reverse proxy tramite labels, come potete vedere nel docker-compose.</description><content>&lt;p>Buongiorno a tutti, eccoci con un nuovo articolo.&lt;br>
+Oggi vedremo come utilizzare un password manager il cui server gira interamente sul tuo host personale.&lt;br>
+Iniziamo col dire che come server non utilizzeremo Bitwarden ufficiale, ma una versione compatibile Bitwarden_Rs,&lt;br>
+scritto in Rust che implementa quasi tutte le API ufficiali. E' molto più leggero, completamente gratuito, e in più utilizza l&amp;rsquo;app e le estensioni per browser ufficiali.&lt;br>
+Come detto nell&amp;rsquo;articolo dedicato a Traefik (&lt;a href="https://simon020286.github.io/posts/2020-11-04-traefik-intro">link&lt;/a>) è possibile impostare l&amp;rsquo;utilizzo del reverse proxy tramite labels, come potete vedere nel &lt;code>docker-compose.yml&lt;/code> seguente.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+&lt;span style="color:#f92672">traefik_network&lt;/span>:
+&lt;span style="color:#f92672">external&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">traefik_trproxy&lt;/span>
+&lt;span style="color:#f92672">services&lt;/span>:
+&lt;span style="color:#f92672">bitwarden&lt;/span>:
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;bitwardenrs/server&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">container_name&lt;/span>: &lt;span style="color:#ae81ff">bitwarden&lt;/span>
+&lt;span style="color:#f92672">environment&lt;/span>:
+&lt;span style="color:#f92672">DOMAIN&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://&amp;lt;dominio&amp;gt;&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">LOG_FILE&lt;/span>: &lt;span style="color:#ae81ff">/shared/logs/bitwarden/bitwarden.log&lt;/span>
+&lt;span style="color:#f92672">LOG_LEVEL&lt;/span>: &lt;span style="color:#ae81ff">warn&lt;/span>
+&lt;span style="color:#f92672">ROCKET_LOG&lt;/span>: &lt;span style="color:#ae81ff">critical&lt;/span>
+&lt;span style="color:#f92672">WEBSOCKET_ENABLED&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">SIGNUPS_ALLOWED&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">traefik.enable&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.docker.network&lt;/span>: &lt;span style="color:#ae81ff">traefik_trproxy&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.browserXssFilter&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.contentTypeNosniff&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.customResponseHeaders.X-Robots-Tag&lt;/span>: &lt;span style="color:#ae81ff">noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.forceSTSHeader&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.frameDeny&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.sslRedirect&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.sslHost&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;dominio&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.stsIncludeSubdomains&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.stsPreload&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.middlewares.bitwarden-security.headers.stsSeconds&lt;/span>: &lt;span style="color:#ae81ff">315360000&lt;/span>
+&lt;span style="color:#f92672">traefik.http.services.bitwarden.loadbalancer.server.scheme&lt;/span>: &lt;span style="color:#ae81ff">http&lt;/span>
+&lt;span style="color:#f92672">traefik.http.services.bitwarden.loadbalancer.server.port&lt;/span>: &lt;span style="color:#ae81ff">80&lt;/span>
+&lt;span style="color:#f92672">traefik.http.services.bitwarden-ws.loadbalancer.server.port&lt;/span>: &lt;span style="color:#ae81ff">3012&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-http.service&lt;/span>: &lt;span style="color:#ae81ff">bitwarden&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-http.rule&lt;/span>: &lt;span style="color:#ae81ff">Host(`&amp;lt;dominio&amp;gt;`)&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-http.entrypoints&lt;/span>: &lt;span style="color:#ae81ff">http&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-http.middlewares&lt;/span>: &lt;span style="color:#ae81ff">bitwarden-security, gzip-compress@file, redirect-to-https@file&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.service&lt;/span>: &lt;span style="color:#ae81ff">bitwarden&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.rule&lt;/span>: &lt;span style="color:#ae81ff">Host(`&amp;lt;dominio&amp;gt;`)&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.entrypoints&lt;/span>: &lt;span style="color:#ae81ff">https&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.middlewares&lt;/span>: &lt;span style="color:#ae81ff">bitwarden-security, gzip-compress@file&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.tls&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden.tls.certresolver&lt;/span>: &lt;span style="color:#ae81ff">le&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.service&lt;/span>: &lt;span style="color:#ae81ff">bitwarden-ws&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.rule&lt;/span>: &lt;span style="color:#ae81ff">Host(`&amp;lt;dominio&amp;gt;`) &amp;amp;&amp;amp; Path(`/notifications/hub`)&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.entrypoints&lt;/span>: &lt;span style="color:#ae81ff">https&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.middlewares&lt;/span>: &lt;span style="color:#ae81ff">bitwarden-security&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.tls&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.bitwarden-ws.tls.certresolver&lt;/span>: &lt;span style="color:#ae81ff">le&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+- &lt;span style="color:#ae81ff">traefik_network&lt;/span>
+&lt;span style="color:#f92672">restart&lt;/span>: &lt;span style="color:#ae81ff">unless-stopped&lt;/span>
+&lt;span style="color:#f92672">volumes&lt;/span>:
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/data:/data&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;shared dir&amp;gt;:/shared&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>E' molto importante rispettare alcune regole.&lt;/p>
+&lt;ol>
+&lt;li>il nome della connessione &lt;code>traefik_network&lt;/code> deve essere lo stesso definito per traefik&lt;/li>
+&lt;li>&lt;code>LOG_FILE: /shared/logs/bitwarden/bitwarden.log&lt;/code> il path &lt;code>/shared&lt;/code> deve essere lo stesso mappato nel volume&lt;/li>
+&lt;li>&lt;code>SIGNUPS_ALLOWED: &amp;quot;false&amp;quot;&lt;/code> al primo avvio bisogna impostarlo a &lt;code>true&lt;/code>, altrimenti non sarà possibile registrare nessun utente, io l&amp;rsquo;ho messo a &lt;code>false&lt;/code> dopo aver creato il mio utente e quello di mia moglie, in modo che nessuno sconosciuto si possa registrare. Siete liberi di lasciarlo a &lt;code>true&lt;/code>.&lt;/li>
+&lt;li>sostituire &lt;code>&amp;lt;dominio&amp;gt;&lt;/code> con il vostro dominio&lt;/li>
+&lt;/ol>
+&lt;p>Fatto questo è possibile lanciare il container semplicemente con il comando &lt;code>docker-compose up -d&lt;/code>.&lt;br>
+Avviato il container sarà possibile procedere alla registrazione del primo utente andato all&amp;rsquo;url specificato in &lt;code>&amp;lt;dominio&amp;gt;&lt;/code>.&lt;/p>
+&lt;p>Buon divertimento con il vostro nuovo password manager.&lt;/p></content></item><item><title>Traefik - Middlewares</title><link>https://simon020286.github.io/posts/2020-11-12-traefik-middlewares/</link><pubDate>Thu, 12 Nov 2020 14:44:54 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-12-traefik-middlewares/</guid><description>Buongiorno a tutti,
 oggi vedremo come creare i primi e più semplici middlewares per Traefik.
-Cosa è un middleware? Semplificando molto è qualcosa che si frappone tra la chiamata e il servizio finale o viceversa.
-Nella mia configurazione ho creato tre middlewares che trovo molto utili. Per crearli basta creare un file all&amp;rsquo;interno della cartella dynamic vista nel primo articolo dedicato a Traefik (lo trovate qui). E&amp;rsquo; anche possibile crearli tramite label dei container, utile se è specifico per un determinato servizio.</description></item><item><title>Traefik - Intro</title><link>https://simon020286.github.io/posts/2020-11-04-traefik-intro/</link><pubDate>Tue, 10 Nov 2020 12:50:05 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-04-traefik-intro/</guid><description>Buongiorno,
+Cosa è un middleware?
+Semplificando molto è qualcosa che si frappone tra la chiamata e il servizio finale o viceversa.
+Nella mia configurazione ho creato tre middlewares che trovo molto utili. Per crearli basta creare un file all&amp;rsquo;interno della cartella dynamic vista nel primo articolo dedicato a Traefik (lo trovate qui).
+E' anche possibile crearli tramite label dei container, utile se è specifico per un determinato servizio.</description><content>&lt;p>Buongiorno a tutti,&lt;br>
+oggi vedremo come creare i primi e più semplici middlewares per Traefik.&lt;br>
+Cosa è un middleware?&lt;br>
+Semplificando molto è qualcosa che si frappone tra la chiamata e il servizio finale o viceversa.&lt;/p>
+&lt;p>&lt;img src="https://doc.traefik.io/traefik/assets/img/middleware/overview.png" alt="middlwares" title="Esempio middlewares Traefik">&lt;/p>
+&lt;p>Nella mia configurazione ho creato tre middlewares che trovo molto utili. Per crearli basta creare un file all&amp;rsquo;interno della cartella dynamic vista nel primo articolo dedicato a Traefik (&lt;a href="https://simon020286.github.io/posts/2020-11-04-traefik-intro/">lo trovate qui&lt;/a>).&lt;br>
+E' anche possibile crearli tramite label dei container, utile se è specifico per un determinato servizio.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Redirect to https, abbastanza semplice da capire, effettua il redirect delle chiamate verso lo schema specificato. Nel mio caso tutte verso https.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
+&lt;span style="color:#f92672">http&lt;/span>:
+&lt;span style="color:#f92672">middlewares&lt;/span>:
+&lt;span style="color:#f92672">redirect-to-https&lt;/span>:
+&lt;span style="color:#f92672">redirectScheme&lt;/span>:
+&lt;span style="color:#f92672">scheme&lt;/span>: &lt;span style="color:#ae81ff">https&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Basic auth, utile per redendere un po' più sicuro un endpoint aggiungendo un&amp;rsquo;autenticazione.&lt;br>
+E' possibile specificare l&amp;rsquo;elenco di coppie username: password, la password deve essere criptata tramite MD5, SHA1, o BCrypt, per fare questo è possibile utilizzare su sistemi Linux &lt;code>htpasswd&lt;/code>. E' anche possibile specificare il path di un file contenente gli utenti, sempre nello stesso formato, tramite l&amp;rsquo;attributo &lt;code>usersFile &lt;/code>al posto di &lt;code>users&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
+&lt;span style="color:#f92672">http&lt;/span>:
+&lt;span style="color:#f92672">middlewares&lt;/span>:
+&lt;span style="color:#f92672">basic-auth&lt;/span>:
+&lt;span style="color:#f92672">basicAuth&lt;/span>:
+&lt;span style="color:#f92672">users&lt;/span>:
+- &lt;span style="color:#e6db74">&amp;#34;&amp;lt;username&amp;gt;:&amp;lt;password&amp;gt;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Compressione della risposta, credo sia uno dei più importanti per limitare il consumo di banda. Comprime le risposte limitando appunto i dati scambiati.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
+&lt;span style="color:#f92672">http&lt;/span>:
+&lt;span style="color:#f92672">middlewares&lt;/span>:
+&lt;span style="color:#f92672">gzip-compress&lt;/span>:
+&lt;span style="color:#f92672">compress&lt;/span>: {}
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;p>Per utilizzare un middleware basta specificarlo nella configurazione della route.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#75715e"># Se utilizzate un file come impostazione.&lt;/span>
+&lt;span style="color:#f92672">http&lt;/span>:
+&lt;span style="color:#f92672">routers&lt;/span>:
+&lt;span style="color:#f92672">nome-route&lt;/span>:
+&lt;span style="color:#f92672">middlewares&lt;/span>:
+- &lt;span style="color:#ae81ff">gzip-compress&lt;/span>
+- &lt;span style="color:#ae81ff">redirect-to-https&lt;/span>
+&lt;span style="color:#75715e"># Se utilizzate le labels di un container come impostazione.&lt;/span>
+&lt;span style="color:#f92672">traefik.http.routers.nome-route.middlewares&lt;/span>: &lt;span style="color:#ae81ff">gzip-compress@file, redirect-to-https@file&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Spero di esservi stato utile e rimango sempre a disposizione per aiutarvi.&lt;/p></content></item><item><title>Traefik - Intro</title><link>https://simon020286.github.io/posts/2020-11-04-traefik-intro/</link><pubDate>Tue, 10 Nov 2020 12:50:05 +0000</pubDate><guid>https://simon020286.github.io/posts/2020-11-04-traefik-intro/</guid><description>Buongiorno,
 oggi parleremo da Traefik, un HTTP reverse proxy e load balancer.
-Io lo sto utilizzando per rendere accessibili dall&amp;rsquo;esterno dei servizi hostati sul mio nas, come ad esempio Home Assistant e l&amp;rsquo;ottimo password manager Bitwarden (di cui probabilmente parlerò su questo blog). Si integra perfettamente con docker, è infatti in grado di leggere automaticamente le impostazioni da un container tramite label.
-Vediamo ora come installarlo proprio tramite docker, più precisamente utilizzando docker-compose per semplificare le cose.</description></item><item><title>Update Ddns</title><link>https://simon020286.github.io/posts/update-ddns/</link><pubDate>Thu, 17 Sep 2020 16:59:50 +0200</pubDate><guid>https://simon020286.github.io/posts/update-ddns/</guid><description>Eccoci qui con il primo vero post di questo blog.
+Io lo sto utilizzando per rendere accessibili dall&amp;rsquo;esterno dei servizi hostati sul mio nas, come ad esempio Home Assistant e l&amp;rsquo;ottimo password manager Bitwarden (di cui probabilmente parlerò su questo blog).
+Si integra perfettamente con docker, è infatti in grado di leggere automaticamente le impostazioni da un container tramite label.
+Vediamo ora come installarlo proprio tramite docker, più precisamente utilizzando docker-compose per semplificare le cose.</description><content>&lt;p>Buongiorno,&lt;br>
+oggi parleremo da &lt;a href="https://doc.traefik.io/traefik/">Traefik&lt;/a>, un HTTP reverse proxy e load balancer.&lt;/p>
+&lt;p>&lt;img src="https://doc.traefik.io/traefik/v1.7/img/architecture.png" alt="architettura">&lt;/p>
+&lt;p>Io lo sto utilizzando per rendere accessibili dall&amp;rsquo;esterno dei servizi hostati sul mio nas, come ad esempio Home Assistant e l&amp;rsquo;ottimo password manager Bitwarden (di cui probabilmente parlerò su questo blog).&lt;br>
+Si integra perfettamente con docker, è infatti in grado di leggere automaticamente le impostazioni da un container tramite label.&lt;br>
+Vediamo ora come installarlo proprio tramite docker, più precisamente utilizzando docker-compose per semplificare le cose.&lt;/p>
+&lt;p>Per prima cosa scriviamo il file di configurazione. Ci sono vari modi per configurare Traefik, via argomenti da linea di comando o via file traefik.yml, che è la strada che ho scelto io perché mi sembra più chiara. Ho commentato direttamente nel file le parti &amp;ldquo;meno&amp;rdquo; importanti.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
+&lt;span style="color:#f92672">global&lt;/span>:
+&lt;span style="color:#75715e"># Verifica la presenza di nuove versioni.&lt;/span>
+&lt;span style="color:#f92672">checkNewVersion&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">entryPoints&lt;/span>:
+&lt;span style="color:#f92672">http&lt;/span>:
+&lt;span style="color:#f92672">address&lt;/span>: :&lt;span style="color:#ae81ff">80&lt;/span>
+&lt;span style="color:#f92672">forwardedHeaders&lt;/span>:
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">proxyProtocol&lt;/span>:
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">https&lt;/span>:
+&lt;span style="color:#f92672">address&lt;/span>: :&lt;span style="color:#ae81ff">443&lt;/span>
+&lt;span style="color:#f92672">forwardedHeaders&lt;/span>:
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">proxyProtocol&lt;/span>:
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">providers&lt;/span>:
+&lt;span style="color:#f92672">docker&lt;/span>:
+&lt;span style="color:#f92672">watch&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">exposedByDefault&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#f92672">endpoint&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;unix:///var/run/docker.sock&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">file&lt;/span>:
+&lt;span style="color:#f92672">directory&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/etc/traefik/dynamic/&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">watch&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">api&lt;/span>:
+&lt;span style="color:#75715e"># Visualizza l&amp;#39;interfaccia web della dashboard e permetti connessioni non sicure.&lt;/span>
+&lt;span style="color:#f92672">dashboard&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">insecure&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#75715e"># Salva il log nel percorso specificato, con livello DEBUG.&lt;/span>
+&lt;span style="color:#75715e"># Ovviamente una volta impostato e verificato il corretto funzionamento si può abbassare il livello.&lt;/span>
+&lt;span style="color:#f92672">log&lt;/span>:
+&lt;span style="color:#f92672">filePath&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/shared/logs/traefik/traefik.log&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">level&lt;/span>: &lt;span style="color:#ae81ff">DEBUG&lt;/span>
+&lt;span style="color:#75715e"># Salva il log delle chiamate nel percorso specificato.&lt;/span>
+&lt;span style="color:#75715e"># E&amp;#39; possibile specificare dei filtri, nel mio caso solo le chiamate con condici di errore.&lt;/span>
+&lt;span style="color:#f92672">accessLog&lt;/span>:
+&lt;span style="color:#f92672">filePath&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/shared/logs/traefik/access.log&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">filters&lt;/span>:
+&lt;span style="color:#f92672">statusCodes&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;400-599&amp;#34;&lt;/span>]
+&lt;span style="color:#75715e"># Let&amp;#39;s encrypt configuration&lt;/span>
+&lt;span style="color:#f92672">certificatesResolvers&lt;/span>:
+&lt;span style="color:#f92672">le&lt;/span>:
+&lt;span style="color:#f92672">acme&lt;/span>:
+&lt;span style="color:#f92672">email&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;email&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">storage&lt;/span>: &lt;span style="color:#ae81ff">/etc/traefik/acme/acme.json&lt;/span>
+&lt;span style="color:#f92672">tlschallenge&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Per prima cosa vengono definiti gli entry points sono i punti di ingresso che può accettare il nostro proxy.&lt;br>
+Io mi attendo delle connessioni dalla porta 80 e 443, è possibile aggiungere molte altre opzioni, ma per questo approfondimento vi rimando alla guida ufficiale.&lt;br>
+I providers sono le risorse da cui è possibile accettare le configurazioni dinamiche, ossia i servizi, le routers e i middlewares.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>docker: permette di creare delle configurazioni tramite le labels di un container.&lt;/p>
+&lt;ul>
+&lt;li>watch: true indica a traefik di rimanere in ascolto di modifiche sui containers, così non sarà necessario riavviare il server ad ogni modifica.&lt;/li>
+&lt;li>exposedByDefault: false, bisogna specificare in un container se esporlo a traefik, altrimenti per ogni nuovo container in esecuzione verrà creato un servizio.&lt;/li>
+&lt;li>endpoint: &amp;ldquo;unix:///var/run/docker.sock&amp;rdquo; il percorso del sock di docker per permettere la comunicazione con esso. Nel nostro caso sarà l&amp;rsquo;istanza di docker installata sul sistema host, come vedremo in seguito.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>file: permette di creare le configurazioni tramite file o files yaml o toml.&lt;/p>
+&lt;ul>
+&lt;li>directory: &amp;ldquo;/etc/traefik/dynamic/&amp;rdquo; ho optato per indicare una cartella in modo da poter suddividere in modo più ordinato le impostazioni. E' possibili anche indicare un singolo file tramite l&amp;rsquo;impostazione &lt;code>filename&lt;/code>.&lt;/li>
+&lt;li>watch: true come sopra.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>L&amp;rsquo;altra parte molto importante del file è &lt;code>certificatesResolvers&lt;/code>, cioè il modo in cui risolvere i certificati SSL.&lt;br>
+Nel mio caso utilizzo Let&amp;rsquo;s Encrypt, un servizio gratuito che permette la generazione di certificati. Traefik integra già tutto il funzionamento basta utilizzare come provider &lt;code>acme&lt;/code>. Le altre impostazioni sono molto semplici, una email valida per ricevere avvisi di scadenza dei certificati e il percorso dove salvare gli stessi.&lt;/p>
+&lt;p>Definita la configurazione base possiamo passare alla creazione del file docker-compose.yml per la creazione del container.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+&lt;span style="color:#f92672">trproxy&lt;/span>:
+&lt;span style="color:#f92672">driver&lt;/span>: &lt;span style="color:#ae81ff">bridge&lt;/span>
+&lt;span style="color:#f92672">services&lt;/span>:
+&lt;span style="color:#f92672">traefik&lt;/span>:
+&lt;span style="color:#f92672">container_name&lt;/span>: &lt;span style="color:#ae81ff">traefik&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">traefik:latest&lt;/span>
+&lt;span style="color:#f92672">restart&lt;/span>: &lt;span style="color:#ae81ff">unless-stopped&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+- &lt;span style="color:#ae81ff">trproxy&lt;/span>
+&lt;span style="color:#f92672">environment&lt;/span>:
+- &lt;span style="color:#ae81ff">TZ:&amp;#34;Europe/Rome&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#ae81ff">8080&lt;/span>:&lt;span style="color:#ae81ff">8080&lt;/span>
+- &lt;span style="color:#ae81ff">80&lt;/span>:&lt;span style="color:#ae81ff">80&lt;/span>
+- &lt;span style="color:#ae81ff">443&lt;/span>:&lt;span style="color:#ae81ff">443&lt;/span>
+&lt;span style="color:#f92672">volumes&lt;/span>:
+- &lt;span style="color:#ae81ff">/var/run/docker.sock:/var/run/docker.sock:ro&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/traefik.yml:/etc/traefik/traefik.yml:ro&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/dynamic:/etc/traefik/dynamic/:ro&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/acme/acme.json:/etc/traefik/acme/acme.json&lt;/span>
+- &lt;span style="color:#ae81ff">&amp;lt;dir&amp;gt;/shared:/shared&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Per prima cosa viene definita la connessione, verrà utilizzata dai containers che vogliono collegarsi a traeik.&lt;br>
+Le tre porte esposte sono:&lt;/p>
+&lt;ul>
+&lt;li>8080 dedicata alla dashboard&lt;/li>
+&lt;li>80 per le connessioni non sicure&lt;/li>
+&lt;li>443 per le connessioni sicure&lt;/li>
+&lt;/ul>
+&lt;p>I volumi invece:&lt;/p>
+&lt;ul>
+&lt;li>/var/run/docker.sock percorso sock docker installato sull&amp;rsquo;host&lt;/li>
+&lt;/ul>
+&lt;p>Scritto il file &lt;code>docker-compose.yml&lt;/code> lanciamo il servizio con &lt;code>docker-compose up -d&lt;/code>. In base alla connessione e potenza della macchina host ci può volere anche qualche minuto. Quando sarà tutto finito potrete raggiungere la dashboard da browser tramite http:&amp;lt;ip della macchina su cui lo avete installato&amp;gt;:8080.&lt;br>
+Saranno già presenti un paio di servizi, tranquilli sono quelli interni che vengono creati dal proxy.&lt;/p>
+&lt;p>Con questo la piccola guida è finita.&lt;br>
+Spero di esservi stato utile.&lt;/p></content></item><item><title>Update Ddns</title><link>https://simon020286.github.io/posts/update-ddns/</link><pubDate>Thu, 17 Sep 2020 16:59:50 +0200</pubDate><guid>https://simon020286.github.io/posts/update-ddns/</guid><description>Eccoci qui con il primo vero post di questo blog.
 Oggi ci dedicheremo all&amp;rsquo;aggiornamento automatico dell&amp;rsquo;ip del proprio server su alcuni servizi DDNS.
 Per fare ciò esistono innumerevoli tool, ma perché utilizzare qualcosa di già fatto quando puoi imparare qualcosa di nuovo?
-In questo periodo mi sto dilettando con gli script bash, quindi ho deciso di seguire questa strada. Il progetto è composto da soli due file, lo script vero e proprio e il file di configurazione, ad essere precisi ce ne sarebbe un terzo, ma viene creato automaticamente dallo script e serve solo per salvare l&amp;rsquo;ip corrente.</description></item><item><title>Benvenuti</title><link>https://simon020286.github.io/posts/first-post/</link><pubDate>Tue, 01 Sep 2020 15:41:29 +0200</pubDate><guid>https://simon020286.github.io/posts/first-post/</guid><description>Ciao a tutti, mi presento.
+In questo periodo mi sto dilettando con gli script bash, quindi ho deciso di seguire questa strada. Il progetto è composto da soli due file, lo script vero e proprio e il file di configurazione, ad essere precisi ce ne sarebbe un terzo, ma viene creato automaticamente dallo script e serve solo per salvare l&amp;rsquo;ip corrente.</description><content>&lt;p>Eccoci qui con il primo vero post di questo blog.&lt;br>
+Oggi ci dedicheremo all&amp;rsquo;aggiornamento automatico dell&amp;rsquo;ip del proprio server su alcuni servizi DDNS.&lt;br>
+Per fare ciò esistono innumerevoli tool, ma perché utilizzare qualcosa di già fatto quando puoi imparare qualcosa di nuovo?&lt;br>
+In questo periodo mi sto dilettando con gli script bash, quindi ho deciso di seguire questa strada. Il progetto è composto da soli due file, lo script vero e proprio e il file di configurazione, ad essere precisi ce ne sarebbe un terzo, ma viene creato automaticamente dallo script e serve solo per salvare l&amp;rsquo;ip corrente.&lt;br>
+Come detto nel post di benvenuto, questo non vuole essere un blog di tutorial, ma la condivisione delle mie esperienze, quindi vi illustrerò come aggiornare gli ip sui due servizi che sto utilizzando al momento.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://no-ip.com">No-Ip&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.duckdns.org/">Duck DNS&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>No-Ip è stato il primo servizio che ho utilizzato, offre molte opzioni e molti sotto servizi. Nella versione free è possibile registrare solo 3 hostname ed è necessario rinnovarli ogni 30 giorni.&lt;br>
+Duck DNS invece è molto più scarno, permette la registrazione di domini che terminano solo con &lt;code>.duckdns.org&lt;/code>, ma è possibile registrare fino a 5 nomi e non richiede il rinnovo.&lt;br>
+Passiamo allo script.&lt;br>
+La parte più complicata è parsare il file di configurazione, ma per fortuna, ovviamente, esiste qualcosa di già fatto.
+Ho utilizzato il metodo descritto in &lt;a href="https://blog.sleeplessbeastie.eu/2019/11/11/how-to-parse-ini-configuration-file-using-bash/">questo articolo&lt;/a>.&lt;br>
+Non sto a spiegare come avviene il parse della configurazione perché non è oggetto di questo post e il tutto viene già spiegato nell&amp;rsquo;articolo linkato. Proseguiamo quindi con la parte da me creata.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">GetINISections $1
+DIRECTORY&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>cd &lt;span style="color:#e6db74">`&lt;/span>dirname $0&lt;span style="color:#e6db74">`&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> pwd&lt;span style="color:#66d9ef">)&lt;/span>
+filename&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>$DIRECTORY&lt;span style="color:#e6db74">/currentip.txt&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">[[&lt;/span> ! -e $filename &lt;span style="color:#f92672">]]&lt;/span>; &lt;span style="color:#66d9ef">then&lt;/span>
+touch $filename
+&lt;span style="color:#66d9ef">fi&lt;/span>
+oldip&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>cat $filename&lt;span style="color:#66d9ef">)&lt;/span>
+currentip&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>curl -s &lt;span style="color:#e6db74">&amp;#39;http://ip1.dynupdate.no-ip.com/&amp;#39;&lt;/span>&lt;span style="color:#66d9ef">)&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">[&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$2&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;--force&amp;#34;&lt;/span> &lt;span style="color:#f92672">]&lt;/span>; &lt;span style="color:#66d9ef">then&lt;/span>
+oldip&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>La prima riga dello script va proprio a leggere il file di configurazione, che vedremo in seguito, il cui path viene passato come primo parametro allo script.&lt;br>
+Nelle righe successive viene:&lt;/p>
+&lt;ol>
+&lt;li>inizializzato il path del file in cui viene salvato l&amp;rsquo;ultimo ip&lt;/li>
+&lt;li>letto l&amp;rsquo;ip dal file&lt;/li>
+&lt;li>recuperato l&amp;rsquo;ip corrente tramite l&amp;rsquo;api messa a disposizione da no-ip e salvato nella variabile &lt;code>currentip&lt;/code>&lt;/li>
+&lt;li>se il secondo parametro passato allo script è &lt;code>--force&lt;/code>, viene svuotato il valore dell&amp;rsquo;ultimo ip.&lt;br>
+Vedremo in seguito il perché.&lt;/li>
+&lt;/ol>
+&lt;h3 id="no-ip">No-Ip&lt;/h3>
+&lt;p>Per questo servizio è necessario utilizzare username e password utilizzati per loggarsi al sito e gli hostname che si vogliono aggiornare.
+Questi se più di uno, basta separarli da virgola. E' anche possibile utilizzare i gruppi presenti su no-ip, passando il nome del gruppo verranno aggiornati automaticamente tutti gli hostname che ne fanno parte.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#66d9ef">[NoIp]&lt;/span>
+&lt;span style="color:#a6e22e">domains&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;lt;NOME_DOMINIO&amp;gt;&lt;/span>
+&lt;span style="color:#a6e22e">username&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;lt;USERNAME&amp;gt;&lt;/span>
+&lt;span style="color:#a6e22e">password&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;lt;PASSWORD&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Nello script bash viene semplicemente chiamata l&amp;rsquo;api, tramite curl, messa a disposizione da no-ip, passando i dati necessari.
+Il metodo effettua la chiamata solo se è presente una dominio per no-ip nel file di configurazione.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">updateNoIp&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">[&lt;/span> -n &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>configuration_noip[&lt;span style="color:#e6db74">&amp;#34;domains&amp;#34;&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">]&lt;/span>; &lt;span style="color:#66d9ef">then&lt;/span>
+domains&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>configuration_noip[&lt;span style="color:#e6db74">&amp;#34;domains&amp;#34;&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>
+username&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>configuration_noip[&lt;span style="color:#e6db74">&amp;#34;username&amp;#34;&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>
+password&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>configuration_noip[&lt;span style="color:#e6db74">&amp;#34;password&amp;#34;&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>
+urlnoip&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;https://dynupdate.no-ip.com/nic/update?hostname=&lt;/span>$domains&lt;span style="color:#e6db74">&amp;amp;myip=&lt;/span>$currentip&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+echo &lt;span style="color:#66d9ef">$(&lt;/span>curl -s --user $username:$password $urlnoip&lt;span style="color:#66d9ef">)&lt;/span>
+&lt;span style="color:#66d9ef">fi&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="duckdns">DuckDns&lt;/h3>
+&lt;p>Per questo servizio è sufficiente recuperare il token presente nella pagina principale una volta loggati e gli hostname che si vogliono aggiornare.
+Trovate un esempio qui sotto.&lt;/p>
+&lt;p>&lt;img src="https://res.cloudinary.com/drg2utgxr/image/upload/v1600434391/posts/update-ddns/duckdns_01.png" alt="Duckdns">&lt;/p>
+&lt;p>Recuperati questi dati il file di configurazione va compilato come segue.
+Se gli hostname da aggiornare sono più di uno basta scriverli separati da virgola.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#66d9ef">[DuckDns]&lt;/span>
+&lt;span style="color:#a6e22e">domains&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;lt;NOME_DOMINIO&amp;gt;&lt;/span>
+&lt;span style="color:#a6e22e">token&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;lt;TOKEN&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Anche in questo caso è sufficiente chiamare l&amp;rsquo;api fornita.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">updateDuckDns&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">[&lt;/span> -n &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>configuration_duckduck[&lt;span style="color:#e6db74">&amp;#34;domains&amp;#34;&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">]&lt;/span>; &lt;span style="color:#66d9ef">then&lt;/span>
+domains&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>configuration_duckduck[&lt;span style="color:#e6db74">&amp;#34;domains&amp;#34;&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>
+token&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>configuration_duckduck[&lt;span style="color:#e6db74">&amp;#34;token&amp;#34;&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>
+urlduckduck&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;https://www.duckdns.org/update?domains=&lt;/span>$domains&lt;span style="color:#e6db74">&amp;amp;token=&lt;/span>$token&lt;span style="color:#e6db74">&amp;amp;ip=&lt;/span>$currentip&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+echo &lt;span style="color:#66d9ef">$(&lt;/span>curl -s $urlduckduck&lt;span style="color:#66d9ef">)&lt;/span>
+&lt;span style="color:#66d9ef">fi&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>L&amp;rsquo;ultima parte dello script è la parte che gestisce il tutto.&lt;br>
+Se l&amp;rsquo;ip letto dal file è diverso da quello attuale vengono chiamate le singole funzioni per i servizi e aggiornato l&amp;rsquo;ip nel file (rig. 83), altrimenti non viene eseguita nessuna operazione.
+Passando allo script come secondo parametro &lt;code>--force&lt;/code>, come detto in precedenza, viene svuotato il valore di &lt;code>$oldip&lt;/code> quindi l&amp;rsquo;aggiornamento verrà fatto indipendentemente dal valore letto dal file.&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">[&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$oldip&lt;span style="color:#e6db74">&amp;#34;&lt;/span> !&lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$currentip&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">]&lt;/span>; &lt;span style="color:#66d9ef">then&lt;/span>
+updateNoIp
+updateDuckDns
+echo $currentip &amp;gt; $filename
+&lt;span style="color:#66d9ef">else&lt;/span>
+echo &lt;span style="color:#e6db74">&amp;#39;Not changed&amp;#39;&lt;/span>
+&lt;span style="color:#66d9ef">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Questo script lo utilizzo sul mio nas di casa su cui girano alcuni servizi accessibili da internet, per richiamarlo l&amp;rsquo;ho schedulato ogni 30 minuti con cron.&lt;br>
+E con questo è tutto, al momento non utilizzo altri servizi per cui il mio script si ferma qui. Suppongo che funzionino più o meno allo stesso modo, quindi non dovrebbe essere complicato integrarne altri.&lt;br>
+Il codice è disponibile a questo &lt;a href="https://github.com/simon020286/update-ddns">repository&lt;/a> di GitHub, siete liberi di proporre modifiche e aggiunte.&lt;/p>
+&lt;p>Buon divertimento&lt;/p></content></item><item><title>Benvenuti</title><link>https://simon020286.github.io/posts/first-post/</link><pubDate>Tue, 01 Sep 2020 15:41:29 +0200</pubDate><guid>https://simon020286.github.io/posts/first-post/</guid><description>Ciao a tutti, mi presento.
 Mi chiamo Simone e sono un programmatore .Net per professione. In questo blog però parlerò tendenzialmente di altre tecnologie. Attualmente sono molto interessato a:
-docker come tecnologia di virtualizzazione Golang come linguaggio di programmazione Raspberry Pi come hardware
-ma la curiosità è tanta, quindi molto probabilmente gli argomenti saranno molti altri.
-Cercherò di condividere il più possibile le mie esperienze, i problemi riscontrati e relative soluzione, nella speranza di poter essere utile a qualcuno.</description></item></channel></rss>
+docker come tecnologia di virtualizzazione Golang come linguaggio di programmazione Raspberry Pi come hardware ma la curiosità è tanta, quindi molto probabilmente gli argomenti saranno molti altri.
+Cercherò di condividere il più possibile le mie esperienze, i problemi riscontrati e relative soluzione, nella speranza di poter essere utile a qualcuno.</description><content>&lt;p>Ciao a tutti,
+mi presento.&lt;br>
+Mi chiamo Simone e sono un programmatore .Net per professione.
+In questo blog però parlerò tendenzialmente di altre tecnologie.
+Attualmente sono molto interessato a:&lt;/p>
+&lt;ol>
+&lt;li>docker come tecnologia di virtualizzazione&lt;/li>
+&lt;li>Golang come linguaggio di programmazione&lt;/li>
+&lt;li>Raspberry Pi come hardware&lt;/li>
+&lt;/ol>
+&lt;p>ma la curiosità è tanta, quindi molto probabilmente gli argomenti saranno molti altri.&lt;/p>
+&lt;p>Cercherò di condividere il più possibile le mie esperienze, i problemi riscontrati e relative soluzione, nella speranza di poter essere utile a qualcuno.
+Al momento non so ancora come sarà strutturato questo blog, se ci saranno delle serie specifiche o se seguirò determinati progetti.&lt;br>
+Quindi abbiate pazienza, ma ogni vostro consiglio sarà ben accetto.&lt;br>
+Auguratemi un in bocca al lupo per questa nuova esperienza&lt;/p></content></item></channel></rss>

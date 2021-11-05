@@ -1,20 +1,22 @@
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
-import React from 'react';
 import Layout from '@components/Layout';
 import Tags from '@components/Tags';
-import { getAllPosts } from '@libs/post';
-import { parseAndFormat } from '@libs/date';
 import { PostType } from '@mytypes/post';
+import { getAllPosts, getAllTags } from '@libs/post';
+import { TagType } from '@mytypes/tag';
+import { parseAndFormat } from '@libs/date';
 
-type IndexProps = {
+const TagPage = ({
+  posts,
+  tag,
+}: {
   posts: PostType[];
-};
-
-export const Index = ({ posts }: IndexProps): JSX.Element => {
+  tag: string;
+}): JSX.Element => {
   return (
     <Layout>
-      <h1>Home Page</h1>
+      <h1>{tag}</h1>
       {posts.map((post) => (
         <article key={post.slug} className="mt-12">
           <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
@@ -42,12 +44,30 @@ export const Index = ({ posts }: IndexProps): JSX.Element => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts({ size: 5 });
+export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+  const posts = getAllPosts({ size: 5, tags: [params.tag] });
 
   return {
-    props: { posts },
+    props: {
+      posts,
+      tag: params.tag,
+    },
   };
 };
 
-export default Index;
+export const getStaticPaths: GetStaticPaths = async () => {
+  const tags = getAllTags();
+
+  const paths = tags.map((tag: TagType) => ({
+    params: {
+      tag: tag.name,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export default TagPage;

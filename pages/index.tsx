@@ -43,7 +43,7 @@ export const Index = ({ posts }: IndexProps): JSX.Element => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts({ size: 5 });
+  const posts = await getAllPosts({ size: 5 });
 
   return {
     props: { posts },

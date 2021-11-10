@@ -45,7 +45,7 @@ const TagPage = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-  const posts = getAllPosts({ size: 5, tags: [params.tag] });
+  const posts = await getAllPosts({ size: 5, tags: [params.tag] });
 
   return {
     props: {

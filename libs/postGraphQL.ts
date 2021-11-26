@@ -65,8 +65,11 @@ function getWhereConditions(conditions: Array<string>): string {
 export async function getAllPosts(
     options: PostsOptions = {} as PostsOptions
 ): Promise<PostType[]> {
-    const queryOptions = [];
+    const queryOptions = [
+        "orderBy: date_DESC"
+    ];
     const whereConditions = [];
+    
     if(options.size) queryOptions.push(`first: ${JSON.stringify(options.size)}`);
     if(options.tags) {
         whereConditions.push(`tags_contains_some: ${JSON.stringify(options.tags)}`);

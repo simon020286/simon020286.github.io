@@ -38,7 +38,7 @@ export const Tags = ({ tags }: { tags: TagType[] }): JSX.Element => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const tags = getAllTags();
+  const tags = await getAllTags();
   return {
     props: { tags },
   };

@@ -26,7 +26,7 @@ const PostPage = ({ post }: PostPageProps): JSX.Element => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const post = getPostBySlug(params?.slug as string);
+  const post = await getPostBySlug(params?.slug as string);
 
   return {
     props: {
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = postFilePaths
+  const paths = (await postFilePaths())
     // Remove file extensions for page paths
     .map((path) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js

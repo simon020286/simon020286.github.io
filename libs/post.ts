@@ -1,1 +1,1 @@
-export { getAllPosts, getAllTags, getPostBySlug, postFilePaths } from './postFauna';
+export { getAllPosts, getAllTags, getPostBySlug, postFilePaths } from './postGraphQL';

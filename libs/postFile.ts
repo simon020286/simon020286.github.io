@@ -3,14 +3,7 @@ import matter from 'gray-matter';
 import path, { join } from 'path';
 import { PostType } from '@mytypes/post';
 import { TagType } from '@mytypes/tag';
-import { Client, query as q } from 'faunadb';
 import { PostsOptions } from '@mytypes/postOptions';
-
-const faunaClient = new Client({
-  secret: 'fnAEXRst8PAAwK38vz9iuhyuwGh4BNcYHUJSUrfD',
-  domain: 'db.eu.fauna.com',
-  scheme: 'https'
-});
 
 export const POSTS_PATH = path.join(process.cwd(), 'posts');
 export const postFilePaths = fs
@@ -20,14 +13,25 @@ export const postFilePaths = fs
 
 const posts: { [key: string]: PostType } = {};
 
-export function getPostBySlug(slug: string): PostType {
+export async function getPostBySlug(slug: string): Promise<PostType> {
   if (posts[slug]) {
     return posts[slug];
   }
 
   const realSlug = slug.replace(/\.mdx$/, '');
   const fullPath = join(POSTS_PATH, `${realSlug}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  const readFile = new Promise<string>((resolve, reject) => {
+    fs.readFile(fullPath, (err, data) => {
+      if(err) {
+        reject(err);
+        return;
+      }
+      resolve(data.toString());
+    })
+  })
+  
+  const fileContents = await readFile;
   const { data, content } = matter(fileContents);
 
   const items = {
@@ -48,14 +52,7 @@ export function getPostBySlug(slug: string): PostType {
 export async function getAllPosts(
   options: PostsOptions = {} as PostsOptions
 ): Promise<PostType[]> {
-  const query = await faunaClient.query(q.Map(
-    q.Paginate(q.Documents(q.Collection("posts"))),
-    q.Lambda((post) => q.Get(post))
-  )) as any;
-
-  console.log(query.data);
-  
-  let posts = postFilePaths.map((slug) => getPostBySlug(slug));
+    let posts = await Promise.all(postFilePaths.map((slug) => getPostBySlug(slug)));
 
   if (options.tags && options.tags.length > 0) {
     posts = posts.filter((post) =>
@@ -71,8 +68,8 @@ export async function getAllPosts(
   return posts;
 }
 
-export function getAllTags(): TagType[] {
-  const postsTags = postFilePaths.map((slug) => getPostBySlug(slug));
+export async function getAllTags(): Promise<TagType[]> {
+  const postsTags = await Promise.all(postFilePaths.map((slug) => getPostBySlug(slug)));
 
   const tags = postsTags.reduce((prev, curr) => {
     curr.tags.forEach((tag) => {
